@@ -117,6 +117,7 @@ const (
 	Secp384r1        = 0x04 << Asymmetric
 	Secp521r1        = 0x05 << Asymmetric
 	Secp256k1Recover = 0x06 << Asymmetric
+	Ed25519          = 0x07 << Asymmetric
 	Rsa2048          = 0x10 << Asymmetric
 	Rsa3072          = 0x11 << Asymmetric
 	Rsa4096          = 0x12 << Asymmetric
@@ -215,4 +216,10 @@ type PluginCreateDecKeyFunc interface {
 	//if persistent is true, key should be persistent and return index
 	//	or persistent is false, key should be persistent and output should in raw form
 	CreateDecKey(persistent bool, mode int) (index []byte, k DecKey, err error)
+}
+
+//FlagReader reader use as flag
+type FlagReader interface {
+	io.Reader
+	GetFlag() int
 }
