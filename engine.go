@@ -121,6 +121,7 @@ const (
 	Rsa2048          = 0x10 << Asymmetric
 	Rsa3072          = 0x11 << Asymmetric
 	Rsa4096          = 0x12 << Asymmetric
+	Ed25519          = 0x20 << Asymmetric
 
 	//Symmetrical Algo for Encrypt and Decrypt
 	Sm4  = 0x01 << Symmetrical
