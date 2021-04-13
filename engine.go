@@ -117,7 +117,6 @@ const (
 	Secp384r1        = 0x04 << Asymmetric
 	Secp521r1        = 0x05 << Asymmetric
 	Secp256k1Recover = 0x06 << Asymmetric
-	Ed25519          = 0x07 << Asymmetric
 	Rsa2048          = 0x10 << Asymmetric
 	Rsa3072          = 0x11 << Asymmetric
 	Rsa4096          = 0x12 << Asymmetric
