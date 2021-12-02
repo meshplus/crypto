@@ -17,7 +17,7 @@ Crypto
 Install **mockgen** : `go get github.com/golang/mock/mockgen`
 
 How to use?
-
+   
 - source： 指定接口文件
 - destination: 生成的文件名
 - package:生成文件的包名
@@ -27,7 +27,7 @@ How to use?
 
 Eg.`mockgen -destination mock/mock_crypto.go -package crypto -source crypto.go`
 
-Eg.`mockgen -destination mock/mock_interface.go -package crypto -source interface.go`
+Eg.`mockgen -destination mock/mock_engine.go -package crypto -source engine.go`
 
 ## GitCZ
 
@@ -41,4 +41,4 @@ Small note: If editing the Readme, please conform to the [standard-readme](https
 
 ## License
 
-LGPL © Ultramesh
+This project is currently under Apache 2.0 license. See the LICENSE file for details

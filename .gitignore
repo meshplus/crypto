@@ -164,5 +164,3 @@ core/vm/jcee/java/hyperjvm
 
 # ignore java target directory
 target
-
-go.sum
