@@ -16,6 +16,8 @@ type Engine interface {
 	PluginEncKeyFunc
 	PluginDecKeyFunc
 	PluginCreateDecKeyFunc
+	SetAlgo([]byte) error
+	GetDefaultAlgo() (int, int)
 }
 
 //SecretKey sym
@@ -126,6 +128,7 @@ const (
 	Sm4  = 0x01 << Symmetrical
 	Aes  = 0x02 << Symmetrical
 	Des3 = 0x03 << Symmetrical
+	TEE  = 0x04 << Symmetrical
 	CBC  = 0x10 << Symmetrical
 	ECB  = 0x20 << Symmetrical
 	GCM  = 0x30 << Symmetrical
