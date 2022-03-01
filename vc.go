@@ -37,11 +37,13 @@ type ChainSDK interface {
 
 //EventCompute event compute
 type EventCompute struct {
-	TaskID       []byte   `json:"taskID"`
-	WebHook      string   `json:"webHook"`
-	CircuitID    []string `json:"circuitID"`
-	PublicInput  string   `json:"publicInput"`
-	PrivateInput string   `json:"privateInput"`
+	TaskID                 string   `json:"taskID"`
+	WebHook                string   `json:"webHook"`
+	WebHookBodyPattern     string   `json:"webHookBodyPattern"`
+	BusinessContractAddr   string   `json:"businessContractAddr"`
+	BusinessContractMethod string   `json:"businessContractMethod"`
+	Input                  string   `json:"input"`
+	CircuitID              [32]byte `json:"circuitID"`
 }
 
 //EventFinish event finish
