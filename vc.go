@@ -28,11 +28,11 @@ type ChainSDK interface {
 	//ChainType 返回链的类型
 	ChainType() string
 	//InvokeFinish 调用Finish方法, namespace是分区（通道），address是合约地址（名称）
-	InvokeFinish(namespace string, nodes []string, address []byte, taskID []byte, proof, result string) ([]byte, error)
+	InvokeFinish(nodes []string, address []byte, taskID []byte, proof, result string) ([]byte, error)
 	//RegisterListening 注册监听EVENT_FINISH和EVENT_COMPUTE事件
-	RegisterListening(namespace string, proxyAddress, businessAddress []byte) (chan *Event, error)
+	RegisterListening(proxyAddress, businessAddress []byte) (chan *Event, error)
 	//UnregisterListening 解注册事件
-	UnregisterListening(namespace string, proxyAddress, businessAddress []byte) error
+	UnregisterListening(proxyAddress, businessAddress []byte) error
 }
 
 //EventCompute event compute
