@@ -38,6 +38,7 @@ type ChainSDK interface {
 
 //EventCompute event compute
 type EventCompute struct {
+	TaskID                 string   `json:"taskID"`
 	WebHook                string   `json:"webHook"`
 	WebHookBodyPattern     string   `json:"webHookBodyPattern"`
 	BusinessContractAddr   string   `json:"businessContractAddr"`
@@ -48,6 +49,7 @@ type EventCompute struct {
 
 //EventFinish event finish
 type EventFinish struct {
+	TaskID   string `json:"taskID"`
 	Proof    string `json:"proof"`
 	Result   string `json:"result"`
 	Response []byte `json:"response"`
