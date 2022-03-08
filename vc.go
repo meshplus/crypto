@@ -38,6 +38,8 @@ type ChainSDK interface {
 
 //EventCompute event compute
 type EventCompute struct {
+	ChannelId              string   `json:"channelId"`
+	CCName                 string   `json:"ccName"`
 	TaskID                 string   `json:"taskID"`
 	WebHook                string   `json:"webHook"`
 	WebHookBodyPattern     string   `json:"webHookBodyPattern"`
