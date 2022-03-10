@@ -29,7 +29,7 @@ type ChainSDK interface {
 	//ChainType 返回链的类型
 	ChainType() string
 	//InvokeFinish 调用Finish方法, namespace是分区（通道），address是合约地址（名称）
-	InvokeFinish(nodes []string, address, taskID, proof, result string) ([]byte, error)
+	InvokeFinish(nodes []string, address, taskID, proof, result, error string) ([]byte, error)
 	//RegisterListening 注册监听EVENT_FINISH和EVENT_COMPUTE事件
 	RegisterListening(proxyAddress, businessAddress []string) (chan *Event, error)
 	//UnregisterListening 解注册事件
@@ -54,5 +54,6 @@ type EventFinish struct {
 	TaskID   string `json:"taskID"`
 	Proof    string `json:"proof"`
 	Result   string `json:"result"`
+	Error    string `json:"result"`
 	Response []byte `json:"response"`
 }
