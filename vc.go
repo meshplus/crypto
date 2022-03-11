@@ -54,6 +54,6 @@ type EventFinish struct {
 	TaskID   string `json:"taskID"`
 	Proof    string `json:"proof"`
 	Result   string `json:"result"`
-	Error    string `json:"result"`
+	Error    string `json:"error"`
 	Response []byte `json:"response"`
 }
