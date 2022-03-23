@@ -67,9 +67,10 @@ type EventCompute struct {
 
 //EventFinish event finish
 type EventFinish struct {
-	TaskID   string `json:"taskID"`
-	Proof    string `json:"proof"`
-	Result   string `json:"result"`
-	Error    string `json:"error"`
-	Response []byte `json:"response"`
+	TaskID      string `json:"taskID"`
+	Proof       string `json:"proof"`
+	Result      string `json:"result"`
+	Error       string `json:"error"`
+	Response    []byte `json:"response"`
+	NextCompute []byte `json:"nextCompute"`
 }
