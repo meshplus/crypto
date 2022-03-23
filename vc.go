@@ -67,6 +67,7 @@ type EventCompute struct {
 
 //EventFinish event finish
 type EventFinish struct {
+	ChannelId   string `json:"channelId"`
 	TaskID      string `json:"taskID"`
 	Proof       string `json:"proof"`
 	Result      string `json:"result"`
