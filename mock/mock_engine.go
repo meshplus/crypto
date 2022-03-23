@@ -83,6 +83,21 @@ func (mr *MockEngineMockRecorder) GetDecKey(key, mode interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDecKey", reflect.TypeOf((*MockEngine)(nil).GetDecKey), key, mode)
 }
 
+// GetDefaultAlgo mocks base method.
+func (m *MockEngine) GetDefaultAlgo() (int, int) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetDefaultAlgo")
+	ret0, _ := ret[0].(int)
+	ret1, _ := ret[1].(int)
+	return ret0, ret1
+}
+
+// GetDefaultAlgo indicates an expected call of GetDefaultAlgo.
+func (mr *MockEngineMockRecorder) GetDefaultAlgo() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDefaultAlgo", reflect.TypeOf((*MockEngine)(nil).GetDefaultAlgo))
+}
+
 // GetEncKey mocks base method.
 func (m *MockEngine) GetEncKey(key []byte, mode int) (crypto.EncKey, error) {
 	m.ctrl.T.Helper()
@@ -216,6 +231,20 @@ func (m *MockEngine) Rander() (io.Reader, error) {
 func (mr *MockEngineMockRecorder) Rander() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Rander", reflect.TypeOf((*MockEngine)(nil).Rander))
+}
+
+// SetAlgo mocks base method.
+func (m *MockEngine) SetAlgo(arg0 []byte) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SetAlgo", arg0)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// SetAlgo indicates an expected call of SetAlgo.
+func (mr *MockEngineMockRecorder) SetAlgo(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetAlgo", reflect.TypeOf((*MockEngine)(nil).SetAlgo), arg0)
 }
 
 // MockSecretKey is a mock of SecretKey interface.
