@@ -25,15 +25,6 @@ type NewSDKFunc func(path, user, namespace string, logger Logger) (ChainSDK, err
 //EventType type EventType
 type EventType int
 
-//Event event
-type Event struct {
-	TaskID   string    `json:"taskID"`
-	Type     EventType `json:"type"`
-	Event    []byte    `json:"event"` //json content
-	TxHash   string    `json:"txHash"`
-	BlockNum int       `json:"blockNum"`
-}
-
 //event type
 const (
 	EventTypeCompute EventType = iota
@@ -52,23 +43,29 @@ type ChainSDK interface {
 	UnregisterListening(address string) error
 }
 
+//Event event
+type Event struct {
+	TaskID    string    `json:"taskID"`
+	ChannelID string    `json:"channelID"`
+	CircuitID [32]byte  `json:"circuitID"`
+	Type      EventType `json:"type"`
+	Event     []byte    `json:"event"` //json content
+	TxHash    string    `json:"txHash"`
+	BlockNum  int       `json:"blockNum"`
+}
+
 //EventCompute event compute
 type EventCompute struct {
-	ChannelId              string   `json:"channelId"`
-	CCName                 string   `json:"ccName"`
-	TaskID                 string   `json:"taskID"`
-	WebHook                string   `json:"webHook"`
-	WebHookBodyPattern     string   `json:"webHookBodyPattern"`
-	BusinessContractAddr   string   `json:"businessContractAddr"`
-	BusinessContractMethod string   `json:"businessContractMethod"`
-	Input                  string   `json:"input"`
-	CircuitID              [32]byte `json:"circuitID"`
+	CCName                 string `json:"ccName"`
+	WebHook                string `json:"webHook"`
+	WebHookBodyPattern     string `json:"webHookBodyPattern"`
+	BusinessContractAddr   string `json:"businessContractAddr"`
+	BusinessContractMethod string `json:"businessContractMethod"`
+	Input                  string `json:"input"`
 }
 
 //EventFinish event finish
 type EventFinish struct {
-	ChannelId   string `json:"channelId"`
-	TaskID      string `json:"taskID"`
 	Proof       string `json:"proof"`
 	Result      string `json:"result"`
 	Error       string `json:"error"`
