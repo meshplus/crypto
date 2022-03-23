@@ -45,9 +45,7 @@ type ChainSDK interface {
 
 //Event event
 type Event struct {
-	TaskID    string    `json:"taskID"`
 	ChannelID string    `json:"channelID"`
-	CircuitID [32]byte  `json:"circuitID"`
 	Type      EventType `json:"type"`
 	Event     []byte    `json:"event"` //json content
 	TxHash    string    `json:"txHash"`
@@ -56,19 +54,23 @@ type Event struct {
 
 //EventCompute event compute
 type EventCompute struct {
-	CCName                 string `json:"ccName"`
-	WebHook                string `json:"webHook"`
-	WebHookBodyPattern     string `json:"webHookBodyPattern"`
-	BusinessContractAddr   string `json:"businessContractAddr"`
-	BusinessContractMethod string `json:"businessContractMethod"`
-	Input                  string `json:"input"`
+	TaskID                 string   `json:"taskID"`
+	CircuitID              [32]byte `json:"circuitID"`
+	CCName                 string   `json:"ccName"`
+	WebHook                string   `json:"webHook"`
+	WebHookBodyPattern     string   `json:"webHookBodyPattern"`
+	BusinessContractAddr   string   `json:"businessContractAddr"`
+	BusinessContractMethod string   `json:"businessContractMethod"`
+	Input                  string   `json:"input"`
 }
 
 //EventFinish event finish
 type EventFinish struct {
-	Proof       string `json:"proof"`
-	Result      string `json:"result"`
-	Error       string `json:"error"`
-	Response    []byte `json:"response"`
-	NextCompute []byte `json:"nextCompute"`
+	TaskID      string   `json:"taskID"`
+	CircuitID   [32]byte `json:"circuitID"`
+	Proof       string   `json:"proof"`
+	Result      string   `json:"result"`
+	Error       string   `json:"error"`
+	Response    []byte   `json:"response"`
+	NextCompute []byte   `json:"nextCompute"`
 }
