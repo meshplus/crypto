@@ -74,3 +74,12 @@ type EventFinish struct {
 	Response    []byte   `json:"response"`
 	NextCompute []byte   `json:"nextCompute"`
 }
+
+//Response callback response
+type Response struct {
+	Continue bool `json:"continue"`
+	//NextParam: proxyContractAddr, input, businessContractAddr, businessContractMethod, WebHook and WebHookBodyPattern
+	NextParam [6]string `json:"nextParam"`
+	//response
+	Response []byte `json:"response"`
+}
