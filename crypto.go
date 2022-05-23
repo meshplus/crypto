@@ -10,7 +10,7 @@ type Hasher interface {
 	hash.Hash
 	// Hash hashes messages msg.
 	Hash(msg []byte) (hash []byte, err error)
-	// BachHash If you need to hash a series of bytes slices, calling BachHash can reduce one copy. BenchHash implies a loop.
+	// BatchHash If you need to hash a series of bytes slices, calling BachHash can reduce one copy. BenchHash implies a loop.
 	// example: a,b,c,d are four big byte slice
 	// BenchHash([][]bytes{a,b,c,d}) faster than Hash(bytes.Join([][]bytes{a,b,c,d},nil))
 	// It reduce one join(...). Join implies one copy.
