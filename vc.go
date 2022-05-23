@@ -3,6 +3,16 @@ package crypto
 //MethodName plugin function name
 const MethodName = "NewSDK"
 
+//curve name
+const (
+	CurveNameBN254          = "bn254"
+	CurveNameSM9            = "sm9"
+	CurveNameCurve101       = "testCurve101"
+	CurveNameCurve101NonFFT = "testCurve101NonFFT"
+	AlgoGroth16             = "groth16"
+	AlgoPlonk               = "plonk"
+)
+
 //Logger interface
 type Logger interface {
 	Debug(v ...interface{})
