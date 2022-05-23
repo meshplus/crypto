@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](///compare/v0.0.9...v0.0.10) (2022-05-23)
+
+
+### Features
+
+* **all:** all ([094fbb0](///commit/094fbb089da2404bbef8ee5a5c1af7effeb03a16))
+* **bilinear_map:** declare interface abour bilinearr-map ([548b7ca](///commit/548b7caec8ce8c545061616913f397a7690054b5))
+* **vc.go:** add ChainSDK interface ([4f6cbe8](///commit/4f6cbe87aed34fc6c5b7038b0eb800befd61be3b))
+* **vc.go:** add Response declare ([99dfde2](///commit/99dfde232a06809878e3640c5646790e7e01d828))
+* **vc.go:** add TaskID to Event ([909bdb2](///commit/909bdb2b934ac1bab1bad3face32b916e078156f))
+* **vc.go:** move taskID to Event ([8031b72](///commit/8031b723eca270bb57be65f3bd5788ecdaed9b3b))
+* **vc.go:** update  ChainSDK interface ([f98f32c](///commit/f98f32c63fb12f217b4ace9362e13f5ead06da05))
+* **vc.go:** update ChainSDk ([c0924e8](///commit/c0924e89d5eef064721d229253ba929a1dbfc7ec))
+* **vc.go:** update EventCompute ([720c07d](///commit/720c07d9cf236067a8a22aa4022fca42d7fce4ac))
+* **vc.go:** update EventFinish ([c2cf77b](///commit/c2cf77b851b763ab6f41d458f046f3972d8ee25c))
+* **vc.go:** update vc ([3f0dce9](///commit/3f0dce902143ec426de351cf50b500d835a0471d))
+* **vc.go:** update vc.go ([c2b9996](///commit/c2b9996719ccf535c6f094a2ae3774f06efb71d6))
+* **vc.go:** update vc.go ([fd15022](///commit/fd150224228c0fb144d9fe6731aedaef372ceb57))
+* **vc.go:** update vc.go ([20ab541](///commit/20ab54145052ca24d872f5af6f2db498f9233ea2))
+* **vc.go:** update vc.go ([60baade](///commit/60baade4ceb8c12f2659c683f917f2567239d8ef))
+* **vc.go:** update vc.go ([5e105b1](///commit/5e105b1a1dd69c74eb9b67d50febf27e8c1ca1e4))
+* **vc.go:** vc.go ([78434c2](///commit/78434c208c138772369020d5026bf9b8b66a1ab2))
+
 ### [0.0.9](///compare/v0.0.8...v0.0.9) (2022-03-23)
 
 
