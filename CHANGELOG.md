@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](///compare/v0.0.10...v0.0.11) (2022-07-05)
+
+
+### Features
+
+* **test:** add test package ([f266b40](///commit/f266b400f3ff5ba1e9224a597c1b70653beee763))
+
 ### [0.0.10](///compare/v0.0.9...v0.0.10) (2022-05-23)
 
 
