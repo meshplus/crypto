@@ -7,12 +7,14 @@ import (
 	"fmt"
 	"math/big"
 	"math/bits"
+	"sync"
 
 	"github.com/meshplus/crypto"
 )
 
 var curveTable map[string]big.Int
 var twistTable map[string]big.Int
+var initCurveOnce sync.Once
 var one = big.NewInt(1)
 
 //Curve101 a instance of a Curve101
@@ -44,19 +46,22 @@ func GetCurve101(fft bool) crypto.Pairing {
 	Curve101.Older.Set(&order)
 	Curve101.Square.Set(&iSquare)
 
-	curveTable = make(map[string]big.Int, 17)
-	twistTable = make(map[string]big.Int, 17)
-	G1 := Curve101.NewCurvePoint(nil)
-	G2 := Curve101.NewTwistPoint(nil)
-	G1g := Curve101.NewCurvePoint(one)
-	G2g := Curve101.NewTwistPoint(one)
-	for i := 0; i < 17; i++ {
-		curveTable[string(G1.Marshal())] = *big.NewInt(int64(i))
-		twistTable[string(G2.Marshal())] = *big.NewInt(int64(i))
+	initCurveOnce.Do(func() {
+		G1g := Curve101.NewCurvePoint(one)
+		G2g := Curve101.NewTwistPoint(one)
 
-		G1.Add(G1, G1g)
-		G2.Add(G2, G2g)
-	}
+		G1 := Curve101.NewCurvePoint(nil)
+		G2 := Curve101.NewTwistPoint(nil)
+		curveTable = make(map[string]big.Int, 17)
+		twistTable = make(map[string]big.Int, 17)
+		for i := 0; i < 17; i++ {
+			curveTable[string(G1.Marshal())] = *big.NewInt(int64(i))
+			twistTable[string(G2.Marshal())] = *big.NewInt(int64(i))
+
+			G1.Add(G1, G1g)
+			G2.Add(G2, G2g)
+		}
+	})
 	return Curve101
 }
 
