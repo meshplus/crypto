@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](///compare/v0.0.12...v0.0.13) (2022-07-06)
+
+
+### Features
+
+* **vc.go:** add RegisterPairing ([d81e052](///commit/d81e0521b7a760938569d937a2882b4589998d47))
+
 ### [0.0.12](///compare/v0.0.11...v0.0.12) (2022-07-06)
 
 
