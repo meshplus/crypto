@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](///compare/v0.0.11...v0.0.12) (2022-07-06)
+
+
+### Features
+
+* **test:** remove assert.go ([1c5a327](///commit/1c5a327427a67b37cf0207179ddc2d995674c655))
+
 ### [0.0.11](///compare/v0.0.10...v0.0.11) (2022-07-05)
 
 
