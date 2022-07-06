@@ -1,5 +1,10 @@
 package crypto
 
+import (
+	"bytes"
+	"sync"
+)
+
 //MethodName plugin function name
 const MethodName = "NewSDK"
 
@@ -74,4 +79,25 @@ type Response struct {
 	NextParam [6]string `json:"nextParam"`
 	//response
 	Response []byte `json:"response"`
+}
+
+var pairing sync.Map
+
+//RegisterPairing register pairing
+func RegisterPairing(p Pairing) {
+	pairing.Store(p.Name(), p)
+}
+
+//UnMarshalPairing unmarshal pairing
+func UnMarshalPairing(data []byte) Pairing {
+	var ret Pairing
+	pairing.Range(func(key, value interface{}) bool {
+		if bytes.Equal(data, []byte(key.(string))) {
+			ret = value.(Pairing)
+			return false
+		}
+		return true
+	})
+
+	return ret
 }

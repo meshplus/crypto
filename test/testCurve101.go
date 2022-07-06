@@ -24,6 +24,8 @@ func init() {
 	module.SetInt64(101)
 	order.SetInt64(17)
 	iSquare.SetInt64(99)
+	crypto.RegisterPairing(GetCurve101(false))
+	crypto.RegisterPairing(GetCurve101(true))
 }
 
 //GetCurve101 get a curve for test
