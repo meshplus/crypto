@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](///compare/v0.0.13...v0.0.14) (2022-07-11)
+
+
+### Bug Fixes
+
+* **testCurce101:** fix curve101 init ([336152b](///commit/336152b102521d90550df49c1eadeb5426bc2fea))
+
 ### [0.0.13](///compare/v0.0.12...v0.0.13) (2022-07-06)
 
 
