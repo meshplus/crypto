@@ -1,4 +1,4 @@
-Crypto
+gitCrypto
 ======
 
 > Crypto Service Provider interface in go.

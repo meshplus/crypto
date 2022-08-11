@@ -5,21 +5,6 @@ import (
 	"io"
 )
 
-//Engine crypto engine
-type Engine interface {
-	PluginRandomFunc
-	PluginHashFunc
-	PluginCryptFunc
-	PluginVerifyFunc
-	PluginSignFunc
-	PluginCreateSignFunc
-	PluginEncKeyFunc
-	PluginDecKeyFunc
-	PluginCreateDecKeyFunc
-	SetAlgo([]byte) error
-	GetDefaultAlgo() (int, int)
-}
-
 //SecretKey sym
 type SecretKey interface {
 	Encrypt(src []byte, reader io.Reader) []byte
@@ -47,22 +32,25 @@ type SignKey interface {
 }
 
 //VerifyKey public key which can verify
+//for more information, see GetVerifyKey's comment
 type VerifyKey interface {
 	GetKeyInfo() int
 	Verify(msg []byte, hasher hash.Hash, sig []byte) bool
-	//return a raw
+	//Bytes return a raw key bytes without algorithm information
 	//sm2: SM2PublicKey::=BIT STRING,	04||X||Y,	65 Bytes,	GMT0009-2012 7.1
 	//ecdsa: PublicKeyBytes in PKIX publicKey
 	//rsa: asn1{N, e}
-	//for more information, see GetVerifyKey's comment
+	//matching public and private key pairs need to return the same result
 	Bytes() []byte
+	//RichBytes return a bytes with algorithm information
+	RichBytes() []byte
 }
 
 //EncKey public key which can encrypt
 type EncKey interface {
 	GetKeyInfo() int
 	Encrypt(msg []byte, reader io.Reader) ([]byte, error)
-	//for more information, see  comment of VerifyKey.Bytes
+	//Bytes for more information, see  comment of VerifyKey.Bytes
 	Bytes() []byte
 }
 
@@ -95,6 +83,7 @@ const (
 	KECCAK           = 0x40 << Hash
 	SM3              = 0x50 << Hash
 	Sm3WithPublicKey = 0x60 << Hash //with default SM2 userID: 1234567812345678
+	SelfDefinedHash  = 0x70 << Hash
 	Size224          = 0x01 << Hash
 	Size256          = 0x00 << Hash
 	Size384          = 0x02 << Hash
@@ -119,48 +108,56 @@ const (
 	Secp384r1        = 0x04 << Asymmetric
 	Secp521r1        = 0x05 << Asymmetric
 	Secp256k1Recover = 0x06 << Asymmetric
+	SelfDefinedSign  = 0x07 << Asymmetric
 	Rsa2048          = 0x10 << Asymmetric
 	Rsa3072          = 0x11 << Asymmetric
 	Rsa4096          = 0x12 << Asymmetric
 	Ed25519          = 0x20 << Asymmetric
 
 	//Symmetrical Algo for Encrypt and Decrypt
-	Sm4  = 0x01 << Symmetrical
-	Aes  = 0x02 << Symmetrical
-	Des3 = 0x03 << Symmetrical
-	TEE  = 0x04 << Symmetrical
-	CBC  = 0x10 << Symmetrical
-	ECB  = 0x20 << Symmetrical
-	GCM  = 0x30 << Symmetrical
+	Sm4              = 0x01 << Symmetrical
+	Aes              = 0x02 << Symmetrical
+	Des3             = 0x03 << Symmetrical
+	TEE              = 0x04 << Symmetrical
+	SelfDefinedCrypt = 0x05 << Symmetrical
+	CBC              = 0x10 << Symmetrical
+	ECB              = 0x20 << Symmetrical
+	GCM              = 0x30 << Symmetrical
 )
 
-//Level priority of plugins
-type Level interface {
-	GetLevel() ([]int, uint8)
+//Function priority of plugins
+type Function interface {
+	ImplementAlgo() []int
 }
 
 //PluginRandomFunc random function
 type PluginRandomFunc interface {
-	Level
+	Function
 	Rander() (io.Reader, error)
+}
+
+//PluginAccelerateFunc random function
+type PluginAccelerateFunc interface {
+	Function
+	Verify(key, sign [][]byte, hashRet [][]byte) (io.Reader, error)
 }
 
 //PluginHashFunc hash function
 type PluginHashFunc interface {
-	Level
+	Function
 	GetHash(mode int) (Hasher, error)
 }
 
 //PluginCryptFunc symmetric encryption and decryption function
 type PluginCryptFunc interface {
-	Level
+	Function
 	GetSecretKey(mode int, pwd, key []byte) (SecretKey, error)
 }
 
-//PluginVerifyFunc verify function
+//PluginVerifyFunc sign function
 type PluginVerifyFunc interface {
-	Level
-	//enter a raw publicKey and mod, return a VerifyKey
+	Function
+	//GetVerifyKey enter a raw publicKey and mod, return a VerifyKey
 	//a raw publicKey means:
 	// 1) for sm2, key is 65bytes and in 0x04||X||Y form, see GMT0009-2012 7.1
 	//      http://www.gmbz.org.cn/main/viewfile/2018011001400692565.html may help
@@ -175,50 +172,63 @@ type PluginVerifyFunc interface {
 	GetVerifyKey(key []byte, mode int) (VerifyKey, error)
 }
 
-//PluginSignFunc sign function
-type PluginSignFunc interface {
-	Level
-	//enter index or raw privat key to generate a SignKey, key will not be persistent
-	// a raw private key is a big integer
-	GetSignKey(key []byte, mode int) (SignKey, error)
-	//enter raw private key, return index, key should be persistent
-	ImportSignKey(key []byte, mode int) (index []byte, err error)
-}
-
-//PluginCreateSignFunc create SignKey
-type PluginCreateSignFunc interface {
-	Level
-	//generate a SignKey, and return index or key in raw form
-	//if persistent is true, key should be persistent and return index
-	//	or persistent is false, key should be persistent and output should in raw form
-	CreateSignKey(persistent bool, mode int) (index []byte, k SignKey, err error)
-}
-
-//PluginEncKeyFunc asymmetric encryption function
-type PluginEncKeyFunc interface {
-	Level
-	//enter a raw publicKey and mod, return a VerifyKey
-	//see GetVerifyKey's comment for the meaning of a raw publicKey
-	GetEncKey(key []byte, mode int) (EncKey, error)
-}
-
 //PluginDecKeyFunc asymmetric decryption function
-type PluginDecKeyFunc interface {
-	Level
-	//enter index or raw privat key to generate a DecKey, key will not be persistent
-	// a raw private key is a big integer
-	GetDecKey(key []byte, mode int) (DecKey, error)
-	//enter raw private key, return index, key should be persistent
-	ImportDecKey(key []byte, mode int) (index []byte, err error)
+//type PluginDecKeyFunc interface {
+//	Level
+//	//GetDecKey enter index or raw privat key to generate a DecKey, key will not be persistent
+//	// a raw private key is a big integer
+//	GetDecKey(key string) (DecKey, error)
+//	//CreateDecKey generate a DecKey, and return index or key in raw form
+//	//if persistent is true, key should be persistent and return index
+//	//	or persistent is false, key should be persistent and output should in raw form
+//	CreateDecKey() (index string, k DecKey, err error)
+//	//GetEncKey enter a raw publicKey and mod, return a VerifyKey
+//	//see GetVerifyKey's comment for the meaning of a raw publicKey
+//	GetEncKey(key []byte, mode int) (EncKey, error)
+//}
+
+type PluginCerificateFunc interface {
+	PluginVerifyFunc
+	//GetSignKey parse printable keyIndex to SignKey
+	GetSignKey(keyIndex string) (SignKey, error)
+	//CreateSignKey generate a sign key
+	CreateSignKey() (index string, k SignKey, err error)
+	//ParseCertificate for x509, input is PEM or self-defined TXT
+	ParseCertificate(string) (Cert, error)
+	//ParseAllCA parse ca
+	ParseAllCA([]string) ([]CA, error)
 }
 
-//PluginCreateDecKeyFunc create decryption function
-type PluginCreateDecKeyFunc interface {
-	Level
-	//generate a DecKey, and return index or key in raw form
-	//if persistent is true, key should be persistent and return index
-	//	or persistent is false, key should be persistent and output should in raw form
-	CreateDecKey(persistent bool, mode int) (index []byte, k DecKey, err error)
+type PluginCerificateDistributedCAFunc interface {
+	PluginCerificateFunc
+	//Issue ext for NVP and LP: key is pkix.Platform, pkix.Version, pkix.VP
+	Issue(ca CA, hostname string, ct CertType, ext map[string]string, vk VerifyKey) ([]byte, error)
+	GenerateLocalCA(hostName string) (skIndex string, ca CA, err error)
+}
+
+type PluginGenerateSessionKeyFunc interface {
+	Function
+	KeyAgreementInit() (data1, data2ToPeer []byte, err error)
+	KeyAgreementFinal(algo string, data1, data2FromPeer []byte) (SecretKey, error)
+}
+
+type CA interface {
+	GetHostName() string
+	GetKeyIdentifier() []byte
+	//GetPubKeyForPairing 返回key，用于和ca的私钥配对（典型值为65字节），仅在分布式CA中调用
+	GetPubKeyForPairing() []byte
+	String() string
+}
+
+type Cert interface {
+	GetCertType() CertType
+	GetHostName() string
+	GetCAHostName() string
+	GetExtName() map[string]string
+	GetAuthorityKeyIdentifier() []byte
+	String() string
+	GetVerifyKey() VerifyKey
+	VerifyCert(caList []string, untrustedPubList [][]byte) error
 }
 
 //FlagReader reader use as flag
@@ -226,3 +236,20 @@ type FlagReader interface {
 	io.Reader
 	GetFlag() int
 }
+
+//CertType a data type to present cert type，like tcert，ecert and so on
+//to install stringer: go install golang.org/x/tools/cmd/...@v0.1.12
+//go:generate go stringer -type CertType -linecomment
+type CertType int
+
+// the value of CertType
+const (
+	ECert           CertType = iota //ecert
+	RCert                           //rcert
+	SDKCert                         //sdkcert
+	TCert                           //tcert
+	ERCert                          //ercert
+	IDCert                          //idcert
+	RAWPub                          //rawpub
+	UnknownCertType                 //unknown_cert_type
+)

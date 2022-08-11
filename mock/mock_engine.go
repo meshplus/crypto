@@ -13,240 +13,6 @@ import (
 	crypto "github.com/meshplus/crypto"
 )
 
-// MockEngine is a mock of Engine interface.
-type MockEngine struct {
-	ctrl     *gomock.Controller
-	recorder *MockEngineMockRecorder
-}
-
-// MockEngineMockRecorder is the mock recorder for MockEngine.
-type MockEngineMockRecorder struct {
-	mock *MockEngine
-}
-
-// NewMockEngine creates a new mock instance.
-func NewMockEngine(ctrl *gomock.Controller) *MockEngine {
-	mock := &MockEngine{ctrl: ctrl}
-	mock.recorder = &MockEngineMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockEngine) EXPECT() *MockEngineMockRecorder {
-	return m.recorder
-}
-
-// CreateDecKey mocks base method.
-func (m *MockEngine) CreateDecKey(persistent bool, mode int) ([]byte, crypto.DecKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateDecKey", persistent, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(crypto.DecKey)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// CreateDecKey indicates an expected call of CreateDecKey.
-func (mr *MockEngineMockRecorder) CreateDecKey(persistent, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDecKey", reflect.TypeOf((*MockEngine)(nil).CreateDecKey), persistent, mode)
-}
-
-// CreateSignKey mocks base method.
-func (m *MockEngine) CreateSignKey(persistent bool, mode int) ([]byte, crypto.SignKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateSignKey", persistent, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(crypto.SignKey)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
-}
-
-// CreateSignKey indicates an expected call of CreateSignKey.
-func (mr *MockEngineMockRecorder) CreateSignKey(persistent, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSignKey", reflect.TypeOf((*MockEngine)(nil).CreateSignKey), persistent, mode)
-}
-
-// GetDecKey mocks base method.
-func (m *MockEngine) GetDecKey(key []byte, mode int) (crypto.DecKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetDecKey", key, mode)
-	ret0, _ := ret[0].(crypto.DecKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetDecKey indicates an expected call of GetDecKey.
-func (mr *MockEngineMockRecorder) GetDecKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDecKey", reflect.TypeOf((*MockEngine)(nil).GetDecKey), key, mode)
-}
-
-// GetDefaultAlgo mocks base method.
-func (m *MockEngine) GetDefaultAlgo() (int, int) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetDefaultAlgo")
-	ret0, _ := ret[0].(int)
-	ret1, _ := ret[1].(int)
-	return ret0, ret1
-}
-
-// GetDefaultAlgo indicates an expected call of GetDefaultAlgo.
-func (mr *MockEngineMockRecorder) GetDefaultAlgo() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDefaultAlgo", reflect.TypeOf((*MockEngine)(nil).GetDefaultAlgo))
-}
-
-// GetEncKey mocks base method.
-func (m *MockEngine) GetEncKey(key []byte, mode int) (crypto.EncKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetEncKey", key, mode)
-	ret0, _ := ret[0].(crypto.EncKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetEncKey indicates an expected call of GetEncKey.
-func (mr *MockEngineMockRecorder) GetEncKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetEncKey", reflect.TypeOf((*MockEngine)(nil).GetEncKey), key, mode)
-}
-
-// GetHash mocks base method.
-func (m *MockEngine) GetHash(mode int) (crypto.Hasher, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetHash", mode)
-	ret0, _ := ret[0].(crypto.Hasher)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetHash indicates an expected call of GetHash.
-func (mr *MockEngineMockRecorder) GetHash(mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHash", reflect.TypeOf((*MockEngine)(nil).GetHash), mode)
-}
-
-// GetLevel mocks base method.
-func (m *MockEngine) GetLevel() ([]int, uint8) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
-}
-
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockEngineMockRecorder) GetLevel() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockEngine)(nil).GetLevel))
-}
-
-// GetSecretKey mocks base method.
-func (m *MockEngine) GetSecretKey(mode int, pwd, key []byte) (crypto.SecretKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSecretKey", mode, pwd, key)
-	ret0, _ := ret[0].(crypto.SecretKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetSecretKey indicates an expected call of GetSecretKey.
-func (mr *MockEngineMockRecorder) GetSecretKey(mode, pwd, key interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSecretKey", reflect.TypeOf((*MockEngine)(nil).GetSecretKey), mode, pwd, key)
-}
-
-// GetSignKey mocks base method.
-func (m *MockEngine) GetSignKey(key []byte, mode int) (crypto.SignKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSignKey", key, mode)
-	ret0, _ := ret[0].(crypto.SignKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetSignKey indicates an expected call of GetSignKey.
-func (mr *MockEngineMockRecorder) GetSignKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSignKey", reflect.TypeOf((*MockEngine)(nil).GetSignKey), key, mode)
-}
-
-// GetVerifyKey mocks base method.
-func (m *MockEngine) GetVerifyKey(key []byte, mode int) (crypto.VerifyKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetVerifyKey", key, mode)
-	ret0, _ := ret[0].(crypto.VerifyKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetVerifyKey indicates an expected call of GetVerifyKey.
-func (mr *MockEngineMockRecorder) GetVerifyKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVerifyKey", reflect.TypeOf((*MockEngine)(nil).GetVerifyKey), key, mode)
-}
-
-// ImportDecKey mocks base method.
-func (m *MockEngine) ImportDecKey(key []byte, mode int) ([]byte, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ImportDecKey", key, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ImportDecKey indicates an expected call of ImportDecKey.
-func (mr *MockEngineMockRecorder) ImportDecKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportDecKey", reflect.TypeOf((*MockEngine)(nil).ImportDecKey), key, mode)
-}
-
-// ImportSignKey mocks base method.
-func (m *MockEngine) ImportSignKey(key []byte, mode int) ([]byte, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ImportSignKey", key, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ImportSignKey indicates an expected call of ImportSignKey.
-func (mr *MockEngineMockRecorder) ImportSignKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportSignKey", reflect.TypeOf((*MockEngine)(nil).ImportSignKey), key, mode)
-}
-
-// Rander mocks base method.
-func (m *MockEngine) Rander() (io.Reader, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Rander")
-	ret0, _ := ret[0].(io.Reader)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Rander indicates an expected call of Rander.
-func (mr *MockEngineMockRecorder) Rander() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Rander", reflect.TypeOf((*MockEngine)(nil).Rander))
-}
-
-// SetAlgo mocks base method.
-func (m *MockEngine) SetAlgo(arg0 []byte) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SetAlgo", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// SetAlgo indicates an expected call of SetAlgo.
-func (mr *MockEngineMockRecorder) SetAlgo(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetAlgo", reflect.TypeOf((*MockEngine)(nil).SetAlgo), arg0)
-}
-
 // MockSecretKey is a mock of SecretKey interface.
 type MockSecretKey struct {
 	ctrl     *gomock.Controller
@@ -376,6 +142,20 @@ func (mr *MockPublicKeyMockRecorder) GetKeyInfo() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyInfo", reflect.TypeOf((*MockPublicKey)(nil).GetKeyInfo))
 }
 
+// RichBytes mocks base method.
+func (m *MockPublicKey) RichBytes() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RichBytes")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// RichBytes indicates an expected call of RichBytes.
+func (mr *MockPublicKeyMockRecorder) RichBytes() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RichBytes", reflect.TypeOf((*MockPublicKey)(nil).RichBytes))
+}
+
 // Verify mocks base method.
 func (m *MockPublicKey) Verify(msg []byte, hasher hash.Hash, sig []byte) bool {
 	m.ctrl.T.Helper()
@@ -483,6 +263,20 @@ func (mr *MockPrivateKeyMockRecorder) GetKeyInfo() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyInfo", reflect.TypeOf((*MockPrivateKey)(nil).GetKeyInfo))
 }
 
+// RichBytes mocks base method.
+func (m *MockPrivateKey) RichBytes() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RichBytes")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// RichBytes indicates an expected call of RichBytes.
+func (mr *MockPrivateKeyMockRecorder) RichBytes() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RichBytes", reflect.TypeOf((*MockPrivateKey)(nil).RichBytes))
+}
+
 // Sign mocks base method.
 func (m *MockPrivateKey) Sign(msg []byte, hasher hash.Hash, rand io.Reader) ([]byte, error) {
 	m.ctrl.T.Helper()
@@ -575,6 +369,20 @@ func (mr *MockSignKeyMockRecorder) GetKeyInfo() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyInfo", reflect.TypeOf((*MockSignKey)(nil).GetKeyInfo))
 }
 
+// RichBytes mocks base method.
+func (m *MockSignKey) RichBytes() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RichBytes")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// RichBytes indicates an expected call of RichBytes.
+func (mr *MockSignKeyMockRecorder) RichBytes() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RichBytes", reflect.TypeOf((*MockSignKey)(nil).RichBytes))
+}
+
 // Sign mocks base method.
 func (m *MockSignKey) Sign(msg []byte, hasher hash.Hash, rand io.Reader) ([]byte, error) {
 	m.ctrl.T.Helper()
@@ -653,6 +461,20 @@ func (m *MockVerifyKey) GetKeyInfo() int {
 func (mr *MockVerifyKeyMockRecorder) GetKeyInfo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyInfo", reflect.TypeOf((*MockVerifyKey)(nil).GetKeyInfo))
+}
+
+// RichBytes mocks base method.
+func (m *MockVerifyKey) RichBytes() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RichBytes")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// RichBytes indicates an expected call of RichBytes.
+func (mr *MockVerifyKeyMockRecorder) RichBytes() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RichBytes", reflect.TypeOf((*MockVerifyKey)(nil).RichBytes))
 }
 
 // Verify mocks base method.
@@ -828,42 +650,41 @@ func (mr *MockDecKeyMockRecorder) GetKeyInfo() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyInfo", reflect.TypeOf((*MockDecKey)(nil).GetKeyInfo))
 }
 
-// MockLevel is a mock of Level interface.
-type MockLevel struct {
+// MockFunction is a mock of Function interface.
+type MockFunction struct {
 	ctrl     *gomock.Controller
-	recorder *MockLevelMockRecorder
+	recorder *MockFunctionMockRecorder
 }
 
-// MockLevelMockRecorder is the mock recorder for MockLevel.
-type MockLevelMockRecorder struct {
-	mock *MockLevel
+// MockFunctionMockRecorder is the mock recorder for MockFunction.
+type MockFunctionMockRecorder struct {
+	mock *MockFunction
 }
 
-// NewMockLevel creates a new mock instance.
-func NewMockLevel(ctrl *gomock.Controller) *MockLevel {
-	mock := &MockLevel{ctrl: ctrl}
-	mock.recorder = &MockLevelMockRecorder{mock}
+// NewMockFunction creates a new mock instance.
+func NewMockFunction(ctrl *gomock.Controller) *MockFunction {
+	mock := &MockFunction{ctrl: ctrl}
+	mock.recorder = &MockFunctionMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockLevel) EXPECT() *MockLevelMockRecorder {
+func (m *MockFunction) EXPECT() *MockFunctionMockRecorder {
 	return m.recorder
 }
 
-// GetLevel mocks base method.
-func (m *MockLevel) GetLevel() ([]int, uint8) {
+// ImplementAlgo mocks base method.
+func (m *MockFunction) ImplementAlgo() []int {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
+	ret := m.ctrl.Call(m, "ImplementAlgo")
 	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
+	return ret0
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockLevelMockRecorder) GetLevel() *gomock.Call {
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockFunctionMockRecorder) ImplementAlgo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockLevel)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockFunction)(nil).ImplementAlgo))
 }
 
 // MockPluginRandomFunc is a mock of PluginRandomFunc interface.
@@ -889,19 +710,18 @@ func (m *MockPluginRandomFunc) EXPECT() *MockPluginRandomFuncMockRecorder {
 	return m.recorder
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginRandomFunc) GetLevel() ([]int, uint8) {
+// ImplementAlgo mocks base method.
+func (m *MockPluginRandomFunc) ImplementAlgo() []int {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
+	ret := m.ctrl.Call(m, "ImplementAlgo")
 	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
+	return ret0
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginRandomFuncMockRecorder) GetLevel() *gomock.Call {
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginRandomFuncMockRecorder) ImplementAlgo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginRandomFunc)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginRandomFunc)(nil).ImplementAlgo))
 }
 
 // Rander mocks base method.
@@ -917,6 +737,58 @@ func (m *MockPluginRandomFunc) Rander() (io.Reader, error) {
 func (mr *MockPluginRandomFuncMockRecorder) Rander() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Rander", reflect.TypeOf((*MockPluginRandomFunc)(nil).Rander))
+}
+
+// MockPluginAccelerateFunc is a mock of PluginAccelerateFunc interface.
+type MockPluginAccelerateFunc struct {
+	ctrl     *gomock.Controller
+	recorder *MockPluginAccelerateFuncMockRecorder
+}
+
+// MockPluginAccelerateFuncMockRecorder is the mock recorder for MockPluginAccelerateFunc.
+type MockPluginAccelerateFuncMockRecorder struct {
+	mock *MockPluginAccelerateFunc
+}
+
+// NewMockPluginAccelerateFunc creates a new mock instance.
+func NewMockPluginAccelerateFunc(ctrl *gomock.Controller) *MockPluginAccelerateFunc {
+	mock := &MockPluginAccelerateFunc{ctrl: ctrl}
+	mock.recorder = &MockPluginAccelerateFuncMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockPluginAccelerateFunc) EXPECT() *MockPluginAccelerateFuncMockRecorder {
+	return m.recorder
+}
+
+// ImplementAlgo mocks base method.
+func (m *MockPluginAccelerateFunc) ImplementAlgo() []int {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImplementAlgo")
+	ret0, _ := ret[0].([]int)
+	return ret0
+}
+
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginAccelerateFuncMockRecorder) ImplementAlgo() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginAccelerateFunc)(nil).ImplementAlgo))
+}
+
+// Verify mocks base method.
+func (m *MockPluginAccelerateFunc) Verify(key, sign, hashRet [][]byte) (io.Reader, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Verify", key, sign, hashRet)
+	ret0, _ := ret[0].(io.Reader)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Verify indicates an expected call of Verify.
+func (mr *MockPluginAccelerateFuncMockRecorder) Verify(key, sign, hashRet interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Verify", reflect.TypeOf((*MockPluginAccelerateFunc)(nil).Verify), key, sign, hashRet)
 }
 
 // MockPluginHashFunc is a mock of PluginHashFunc interface.
@@ -957,19 +829,18 @@ func (mr *MockPluginHashFuncMockRecorder) GetHash(mode interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHash", reflect.TypeOf((*MockPluginHashFunc)(nil).GetHash), mode)
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginHashFunc) GetLevel() ([]int, uint8) {
+// ImplementAlgo mocks base method.
+func (m *MockPluginHashFunc) ImplementAlgo() []int {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
+	ret := m.ctrl.Call(m, "ImplementAlgo")
 	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
+	return ret0
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginHashFuncMockRecorder) GetLevel() *gomock.Call {
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginHashFuncMockRecorder) ImplementAlgo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginHashFunc)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginHashFunc)(nil).ImplementAlgo))
 }
 
 // MockPluginCryptFunc is a mock of PluginCryptFunc interface.
@@ -995,21 +866,6 @@ func (m *MockPluginCryptFunc) EXPECT() *MockPluginCryptFuncMockRecorder {
 	return m.recorder
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginCryptFunc) GetLevel() ([]int, uint8) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
-}
-
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginCryptFuncMockRecorder) GetLevel() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginCryptFunc)(nil).GetLevel))
-}
-
 // GetSecretKey mocks base method.
 func (m *MockPluginCryptFunc) GetSecretKey(mode int, pwd, key []byte) (crypto.SecretKey, error) {
 	m.ctrl.T.Helper()
@@ -1023,6 +879,20 @@ func (m *MockPluginCryptFunc) GetSecretKey(mode int, pwd, key []byte) (crypto.Se
 func (mr *MockPluginCryptFuncMockRecorder) GetSecretKey(mode, pwd, key interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSecretKey", reflect.TypeOf((*MockPluginCryptFunc)(nil).GetSecretKey), mode, pwd, key)
+}
+
+// ImplementAlgo mocks base method.
+func (m *MockPluginCryptFunc) ImplementAlgo() []int {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImplementAlgo")
+	ret0, _ := ret[0].([]int)
+	return ret0
+}
+
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginCryptFuncMockRecorder) ImplementAlgo() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginCryptFunc)(nil).ImplementAlgo))
 }
 
 // MockPluginVerifyFunc is a mock of PluginVerifyFunc interface.
@@ -1048,21 +918,6 @@ func (m *MockPluginVerifyFunc) EXPECT() *MockPluginVerifyFuncMockRecorder {
 	return m.recorder
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginVerifyFunc) GetLevel() ([]int, uint8) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
-}
-
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginVerifyFuncMockRecorder) GetLevel() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginVerifyFunc)(nil).GetLevel))
-}
-
 // GetVerifyKey mocks base method.
 func (m *MockPluginVerifyFunc) GetVerifyKey(key []byte, mode int) (crypto.VerifyKey, error) {
 	m.ctrl.T.Helper()
@@ -1078,301 +933,557 @@ func (mr *MockPluginVerifyFuncMockRecorder) GetVerifyKey(key, mode interface{}) 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVerifyKey", reflect.TypeOf((*MockPluginVerifyFunc)(nil).GetVerifyKey), key, mode)
 }
 
-// MockPluginSignFunc is a mock of PluginSignFunc interface.
-type MockPluginSignFunc struct {
-	ctrl     *gomock.Controller
-	recorder *MockPluginSignFuncMockRecorder
-}
-
-// MockPluginSignFuncMockRecorder is the mock recorder for MockPluginSignFunc.
-type MockPluginSignFuncMockRecorder struct {
-	mock *MockPluginSignFunc
-}
-
-// NewMockPluginSignFunc creates a new mock instance.
-func NewMockPluginSignFunc(ctrl *gomock.Controller) *MockPluginSignFunc {
-	mock := &MockPluginSignFunc{ctrl: ctrl}
-	mock.recorder = &MockPluginSignFuncMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockPluginSignFunc) EXPECT() *MockPluginSignFuncMockRecorder {
-	return m.recorder
-}
-
-// GetLevel mocks base method.
-func (m *MockPluginSignFunc) GetLevel() ([]int, uint8) {
+// ImplementAlgo mocks base method.
+func (m *MockPluginVerifyFunc) ImplementAlgo() []int {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
+	ret := m.ctrl.Call(m, "ImplementAlgo")
 	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
+	return ret0
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginSignFuncMockRecorder) GetLevel() *gomock.Call {
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginVerifyFuncMockRecorder) ImplementAlgo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginSignFunc)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginVerifyFunc)(nil).ImplementAlgo))
 }
 
-// GetSignKey mocks base method.
-func (m *MockPluginSignFunc) GetSignKey(key []byte, mode int) (crypto.SignKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetSignKey", key, mode)
-	ret0, _ := ret[0].(crypto.SignKey)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetSignKey indicates an expected call of GetSignKey.
-func (mr *MockPluginSignFuncMockRecorder) GetSignKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSignKey", reflect.TypeOf((*MockPluginSignFunc)(nil).GetSignKey), key, mode)
-}
-
-// ImportSignKey mocks base method.
-func (m *MockPluginSignFunc) ImportSignKey(key []byte, mode int) ([]byte, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ImportSignKey", key, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ImportSignKey indicates an expected call of ImportSignKey.
-func (mr *MockPluginSignFuncMockRecorder) ImportSignKey(key, mode interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportSignKey", reflect.TypeOf((*MockPluginSignFunc)(nil).ImportSignKey), key, mode)
-}
-
-// MockPluginCreateSignFunc is a mock of PluginCreateSignFunc interface.
-type MockPluginCreateSignFunc struct {
+// MockPluginCerificateFunc is a mock of PluginCerificateFunc interface.
+type MockPluginCerificateFunc struct {
 	ctrl     *gomock.Controller
-	recorder *MockPluginCreateSignFuncMockRecorder
+	recorder *MockPluginCerificateFuncMockRecorder
 }
 
-// MockPluginCreateSignFuncMockRecorder is the mock recorder for MockPluginCreateSignFunc.
-type MockPluginCreateSignFuncMockRecorder struct {
-	mock *MockPluginCreateSignFunc
+// MockPluginCerificateFuncMockRecorder is the mock recorder for MockPluginCerificateFunc.
+type MockPluginCerificateFuncMockRecorder struct {
+	mock *MockPluginCerificateFunc
 }
 
-// NewMockPluginCreateSignFunc creates a new mock instance.
-func NewMockPluginCreateSignFunc(ctrl *gomock.Controller) *MockPluginCreateSignFunc {
-	mock := &MockPluginCreateSignFunc{ctrl: ctrl}
-	mock.recorder = &MockPluginCreateSignFuncMockRecorder{mock}
+// NewMockPluginCerificateFunc creates a new mock instance.
+func NewMockPluginCerificateFunc(ctrl *gomock.Controller) *MockPluginCerificateFunc {
+	mock := &MockPluginCerificateFunc{ctrl: ctrl}
+	mock.recorder = &MockPluginCerificateFuncMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockPluginCreateSignFunc) EXPECT() *MockPluginCreateSignFuncMockRecorder {
+func (m *MockPluginCerificateFunc) EXPECT() *MockPluginCerificateFuncMockRecorder {
 	return m.recorder
 }
 
 // CreateSignKey mocks base method.
-func (m *MockPluginCreateSignFunc) CreateSignKey(persistent bool, mode int) ([]byte, crypto.SignKey, error) {
+func (m *MockPluginCerificateFunc) CreateSignKey() (string, crypto.SignKey, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateSignKey", persistent, mode)
-	ret0, _ := ret[0].([]byte)
+	ret := m.ctrl.Call(m, "CreateSignKey")
+	ret0, _ := ret[0].(string)
 	ret1, _ := ret[1].(crypto.SignKey)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
 
 // CreateSignKey indicates an expected call of CreateSignKey.
-func (mr *MockPluginCreateSignFuncMockRecorder) CreateSignKey(persistent, mode interface{}) *gomock.Call {
+func (mr *MockPluginCerificateFuncMockRecorder) CreateSignKey() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSignKey", reflect.TypeOf((*MockPluginCreateSignFunc)(nil).CreateSignKey), persistent, mode)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSignKey", reflect.TypeOf((*MockPluginCerificateFunc)(nil).CreateSignKey))
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginCreateSignFunc) GetLevel() ([]int, uint8) {
+// GetSignKey mocks base method.
+func (m *MockPluginCerificateFunc) GetSignKey(keyIndex string) (crypto.SignKey, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
-}
-
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginCreateSignFuncMockRecorder) GetLevel() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginCreateSignFunc)(nil).GetLevel))
-}
-
-// MockPluginEncKeyFunc is a mock of PluginEncKeyFunc interface.
-type MockPluginEncKeyFunc struct {
-	ctrl     *gomock.Controller
-	recorder *MockPluginEncKeyFuncMockRecorder
-}
-
-// MockPluginEncKeyFuncMockRecorder is the mock recorder for MockPluginEncKeyFunc.
-type MockPluginEncKeyFuncMockRecorder struct {
-	mock *MockPluginEncKeyFunc
-}
-
-// NewMockPluginEncKeyFunc creates a new mock instance.
-func NewMockPluginEncKeyFunc(ctrl *gomock.Controller) *MockPluginEncKeyFunc {
-	mock := &MockPluginEncKeyFunc{ctrl: ctrl}
-	mock.recorder = &MockPluginEncKeyFuncMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockPluginEncKeyFunc) EXPECT() *MockPluginEncKeyFuncMockRecorder {
-	return m.recorder
-}
-
-// GetEncKey mocks base method.
-func (m *MockPluginEncKeyFunc) GetEncKey(key []byte, mode int) (crypto.EncKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetEncKey", key, mode)
-	ret0, _ := ret[0].(crypto.EncKey)
+	ret := m.ctrl.Call(m, "GetSignKey", keyIndex)
+	ret0, _ := ret[0].(crypto.SignKey)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetEncKey indicates an expected call of GetEncKey.
-func (mr *MockPluginEncKeyFuncMockRecorder) GetEncKey(key, mode interface{}) *gomock.Call {
+// GetSignKey indicates an expected call of GetSignKey.
+func (mr *MockPluginCerificateFuncMockRecorder) GetSignKey(keyIndex interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetEncKey", reflect.TypeOf((*MockPluginEncKeyFunc)(nil).GetEncKey), key, mode)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSignKey", reflect.TypeOf((*MockPluginCerificateFunc)(nil).GetSignKey), keyIndex)
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginEncKeyFunc) GetLevel() ([]int, uint8) {
+// GetVerifyKey mocks base method.
+func (m *MockPluginCerificateFunc) GetVerifyKey(key []byte, mode int) (crypto.VerifyKey, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
-}
-
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginEncKeyFuncMockRecorder) GetLevel() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginEncKeyFunc)(nil).GetLevel))
-}
-
-// MockPluginDecKeyFunc is a mock of PluginDecKeyFunc interface.
-type MockPluginDecKeyFunc struct {
-	ctrl     *gomock.Controller
-	recorder *MockPluginDecKeyFuncMockRecorder
-}
-
-// MockPluginDecKeyFuncMockRecorder is the mock recorder for MockPluginDecKeyFunc.
-type MockPluginDecKeyFuncMockRecorder struct {
-	mock *MockPluginDecKeyFunc
-}
-
-// NewMockPluginDecKeyFunc creates a new mock instance.
-func NewMockPluginDecKeyFunc(ctrl *gomock.Controller) *MockPluginDecKeyFunc {
-	mock := &MockPluginDecKeyFunc{ctrl: ctrl}
-	mock.recorder = &MockPluginDecKeyFuncMockRecorder{mock}
-	return mock
-}
-
-// EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockPluginDecKeyFunc) EXPECT() *MockPluginDecKeyFuncMockRecorder {
-	return m.recorder
-}
-
-// GetDecKey mocks base method.
-func (m *MockPluginDecKeyFunc) GetDecKey(key []byte, mode int) (crypto.DecKey, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetDecKey", key, mode)
-	ret0, _ := ret[0].(crypto.DecKey)
+	ret := m.ctrl.Call(m, "GetVerifyKey", key, mode)
+	ret0, _ := ret[0].(crypto.VerifyKey)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetDecKey indicates an expected call of GetDecKey.
-func (mr *MockPluginDecKeyFuncMockRecorder) GetDecKey(key, mode interface{}) *gomock.Call {
+// GetVerifyKey indicates an expected call of GetVerifyKey.
+func (mr *MockPluginCerificateFuncMockRecorder) GetVerifyKey(key, mode interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDecKey", reflect.TypeOf((*MockPluginDecKeyFunc)(nil).GetDecKey), key, mode)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVerifyKey", reflect.TypeOf((*MockPluginCerificateFunc)(nil).GetVerifyKey), key, mode)
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginDecKeyFunc) GetLevel() ([]int, uint8) {
+// ImplementAlgo mocks base method.
+func (m *MockPluginCerificateFunc) ImplementAlgo() []int {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
+	ret := m.ctrl.Call(m, "ImplementAlgo")
 	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
-	return ret0, ret1
+	return ret0
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginDecKeyFuncMockRecorder) GetLevel() *gomock.Call {
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginCerificateFuncMockRecorder) ImplementAlgo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginDecKeyFunc)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginCerificateFunc)(nil).ImplementAlgo))
 }
 
-// ImportDecKey mocks base method.
-func (m *MockPluginDecKeyFunc) ImportDecKey(key []byte, mode int) ([]byte, error) {
+// ParseAllCA mocks base method.
+func (m *MockPluginCerificateFunc) ParseAllCA(arg0 []string) ([]crypto.CA, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ImportDecKey", key, mode)
-	ret0, _ := ret[0].([]byte)
+	ret := m.ctrl.Call(m, "ParseAllCA", arg0)
+	ret0, _ := ret[0].([]crypto.CA)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ImportDecKey indicates an expected call of ImportDecKey.
-func (mr *MockPluginDecKeyFuncMockRecorder) ImportDecKey(key, mode interface{}) *gomock.Call {
+// ParseAllCA indicates an expected call of ParseAllCA.
+func (mr *MockPluginCerificateFuncMockRecorder) ParseAllCA(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImportDecKey", reflect.TypeOf((*MockPluginDecKeyFunc)(nil).ImportDecKey), key, mode)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseAllCA", reflect.TypeOf((*MockPluginCerificateFunc)(nil).ParseAllCA), arg0)
 }
 
-// MockPluginCreateDecKeyFunc is a mock of PluginCreateDecKeyFunc interface.
-type MockPluginCreateDecKeyFunc struct {
+// ParseCertificate mocks base method.
+func (m *MockPluginCerificateFunc) ParseCertificate(arg0 string) (crypto.Cert, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ParseCertificate", arg0)
+	ret0, _ := ret[0].(crypto.Cert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ParseCertificate indicates an expected call of ParseCertificate.
+func (mr *MockPluginCerificateFuncMockRecorder) ParseCertificate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseCertificate", reflect.TypeOf((*MockPluginCerificateFunc)(nil).ParseCertificate), arg0)
+}
+
+// MockPluginCerificateDistributedCAFunc is a mock of PluginCerificateDistributedCAFunc interface.
+type MockPluginCerificateDistributedCAFunc struct {
 	ctrl     *gomock.Controller
-	recorder *MockPluginCreateDecKeyFuncMockRecorder
+	recorder *MockPluginCerificateDistributedCAFuncMockRecorder
 }
 
-// MockPluginCreateDecKeyFuncMockRecorder is the mock recorder for MockPluginCreateDecKeyFunc.
-type MockPluginCreateDecKeyFuncMockRecorder struct {
-	mock *MockPluginCreateDecKeyFunc
+// MockPluginCerificateDistributedCAFuncMockRecorder is the mock recorder for MockPluginCerificateDistributedCAFunc.
+type MockPluginCerificateDistributedCAFuncMockRecorder struct {
+	mock *MockPluginCerificateDistributedCAFunc
 }
 
-// NewMockPluginCreateDecKeyFunc creates a new mock instance.
-func NewMockPluginCreateDecKeyFunc(ctrl *gomock.Controller) *MockPluginCreateDecKeyFunc {
-	mock := &MockPluginCreateDecKeyFunc{ctrl: ctrl}
-	mock.recorder = &MockPluginCreateDecKeyFuncMockRecorder{mock}
+// NewMockPluginCerificateDistributedCAFunc creates a new mock instance.
+func NewMockPluginCerificateDistributedCAFunc(ctrl *gomock.Controller) *MockPluginCerificateDistributedCAFunc {
+	mock := &MockPluginCerificateDistributedCAFunc{ctrl: ctrl}
+	mock.recorder = &MockPluginCerificateDistributedCAFuncMockRecorder{mock}
 	return mock
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
-func (m *MockPluginCreateDecKeyFunc) EXPECT() *MockPluginCreateDecKeyFuncMockRecorder {
+func (m *MockPluginCerificateDistributedCAFunc) EXPECT() *MockPluginCerificateDistributedCAFuncMockRecorder {
 	return m.recorder
 }
 
-// CreateDecKey mocks base method.
-func (m *MockPluginCreateDecKeyFunc) CreateDecKey(persistent bool, mode int) ([]byte, crypto.DecKey, error) {
+// CreateSignKey mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) CreateSignKey() (string, crypto.SignKey, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateDecKey", persistent, mode)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(crypto.DecKey)
+	ret := m.ctrl.Call(m, "CreateSignKey")
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(crypto.SignKey)
 	ret2, _ := ret[2].(error)
 	return ret0, ret1, ret2
 }
 
-// CreateDecKey indicates an expected call of CreateDecKey.
-func (mr *MockPluginCreateDecKeyFuncMockRecorder) CreateDecKey(persistent, mode interface{}) *gomock.Call {
+// CreateSignKey indicates an expected call of CreateSignKey.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) CreateSignKey() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDecKey", reflect.TypeOf((*MockPluginCreateDecKeyFunc)(nil).CreateDecKey), persistent, mode)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateSignKey", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).CreateSignKey))
 }
 
-// GetLevel mocks base method.
-func (m *MockPluginCreateDecKeyFunc) GetLevel() ([]int, uint8) {
+// GenerateLocalCA mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) GenerateLocalCA(hostName string) (string, crypto.CA, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLevel")
-	ret0, _ := ret[0].([]int)
-	ret1, _ := ret[1].(uint8)
+	ret := m.ctrl.Call(m, "GenerateLocalCA", hostName)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(crypto.CA)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GenerateLocalCA indicates an expected call of GenerateLocalCA.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) GenerateLocalCA(hostName interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GenerateLocalCA", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).GenerateLocalCA), hostName)
+}
+
+// GetSignKey mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) GetSignKey(keyIndex string) (crypto.SignKey, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetSignKey", keyIndex)
+	ret0, _ := ret[0].(crypto.SignKey)
+	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// GetLevel indicates an expected call of GetLevel.
-func (mr *MockPluginCreateDecKeyFuncMockRecorder) GetLevel() *gomock.Call {
+// GetSignKey indicates an expected call of GetSignKey.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) GetSignKey(keyIndex interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLevel", reflect.TypeOf((*MockPluginCreateDecKeyFunc)(nil).GetLevel))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSignKey", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).GetSignKey), keyIndex)
+}
+
+// GetVerifyKey mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) GetVerifyKey(key []byte, mode int) (crypto.VerifyKey, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetVerifyKey", key, mode)
+	ret0, _ := ret[0].(crypto.VerifyKey)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetVerifyKey indicates an expected call of GetVerifyKey.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) GetVerifyKey(key, mode interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVerifyKey", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).GetVerifyKey), key, mode)
+}
+
+// ImplementAlgo mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) ImplementAlgo() []int {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImplementAlgo")
+	ret0, _ := ret[0].([]int)
+	return ret0
+}
+
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) ImplementAlgo() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).ImplementAlgo))
+}
+
+// Issue mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) Issue(ca crypto.CA, hostname string, ct crypto.CertType, ext map[string]string, vk crypto.VerifyKey) ([]byte, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Issue", ca, hostname, ct, ext, vk)
+	ret0, _ := ret[0].([]byte)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Issue indicates an expected call of Issue.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) Issue(ca, hostname, ct, ext, vk interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Issue", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).Issue), ca, hostname, ct, ext, vk)
+}
+
+// ParseAllCA mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) ParseAllCA(arg0 []string) ([]crypto.CA, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ParseAllCA", arg0)
+	ret0, _ := ret[0].([]crypto.CA)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ParseAllCA indicates an expected call of ParseAllCA.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) ParseAllCA(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseAllCA", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).ParseAllCA), arg0)
+}
+
+// ParseCertificate mocks base method.
+func (m *MockPluginCerificateDistributedCAFunc) ParseCertificate(arg0 string) (crypto.Cert, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ParseCertificate", arg0)
+	ret0, _ := ret[0].(crypto.Cert)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ParseCertificate indicates an expected call of ParseCertificate.
+func (mr *MockPluginCerificateDistributedCAFuncMockRecorder) ParseCertificate(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseCertificate", reflect.TypeOf((*MockPluginCerificateDistributedCAFunc)(nil).ParseCertificate), arg0)
+}
+
+// MockPluginGenerateSessionKeyFunc is a mock of PluginGenerateSessionKeyFunc interface.
+type MockPluginGenerateSessionKeyFunc struct {
+	ctrl     *gomock.Controller
+	recorder *MockPluginGenerateSessionKeyFuncMockRecorder
+}
+
+// MockPluginGenerateSessionKeyFuncMockRecorder is the mock recorder for MockPluginGenerateSessionKeyFunc.
+type MockPluginGenerateSessionKeyFuncMockRecorder struct {
+	mock *MockPluginGenerateSessionKeyFunc
+}
+
+// NewMockPluginGenerateSessionKeyFunc creates a new mock instance.
+func NewMockPluginGenerateSessionKeyFunc(ctrl *gomock.Controller) *MockPluginGenerateSessionKeyFunc {
+	mock := &MockPluginGenerateSessionKeyFunc{ctrl: ctrl}
+	mock.recorder = &MockPluginGenerateSessionKeyFuncMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockPluginGenerateSessionKeyFunc) EXPECT() *MockPluginGenerateSessionKeyFuncMockRecorder {
+	return m.recorder
+}
+
+// ImplementAlgo mocks base method.
+func (m *MockPluginGenerateSessionKeyFunc) ImplementAlgo() []int {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ImplementAlgo")
+	ret0, _ := ret[0].([]int)
+	return ret0
+}
+
+// ImplementAlgo indicates an expected call of ImplementAlgo.
+func (mr *MockPluginGenerateSessionKeyFuncMockRecorder) ImplementAlgo() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ImplementAlgo", reflect.TypeOf((*MockPluginGenerateSessionKeyFunc)(nil).ImplementAlgo))
+}
+
+// KeyAgreementFinal mocks base method.
+func (m *MockPluginGenerateSessionKeyFunc) KeyAgreementFinal(algo string, data1, data2FromPeer []byte) (crypto.SecretKey, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "KeyAgreementFinal", algo, data1, data2FromPeer)
+	ret0, _ := ret[0].(crypto.SecretKey)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// KeyAgreementFinal indicates an expected call of KeyAgreementFinal.
+func (mr *MockPluginGenerateSessionKeyFuncMockRecorder) KeyAgreementFinal(algo, data1, data2FromPeer interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeyAgreementFinal", reflect.TypeOf((*MockPluginGenerateSessionKeyFunc)(nil).KeyAgreementFinal), algo, data1, data2FromPeer)
+}
+
+// KeyAgreementInit mocks base method.
+func (m *MockPluginGenerateSessionKeyFunc) KeyAgreementInit() ([]byte, []byte, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "KeyAgreementInit")
+	ret0, _ := ret[0].([]byte)
+	ret1, _ := ret[1].([]byte)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// KeyAgreementInit indicates an expected call of KeyAgreementInit.
+func (mr *MockPluginGenerateSessionKeyFuncMockRecorder) KeyAgreementInit() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "KeyAgreementInit", reflect.TypeOf((*MockPluginGenerateSessionKeyFunc)(nil).KeyAgreementInit))
+}
+
+// MockCA is a mock of CA interface.
+type MockCA struct {
+	ctrl     *gomock.Controller
+	recorder *MockCAMockRecorder
+}
+
+// MockCAMockRecorder is the mock recorder for MockCA.
+type MockCAMockRecorder struct {
+	mock *MockCA
+}
+
+// NewMockCA creates a new mock instance.
+func NewMockCA(ctrl *gomock.Controller) *MockCA {
+	mock := &MockCA{ctrl: ctrl}
+	mock.recorder = &MockCAMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockCA) EXPECT() *MockCAMockRecorder {
+	return m.recorder
+}
+
+// GetHostName mocks base method.
+func (m *MockCA) GetHostName() string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetHostName")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// GetHostName indicates an expected call of GetHostName.
+func (mr *MockCAMockRecorder) GetHostName() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHostName", reflect.TypeOf((*MockCA)(nil).GetHostName))
+}
+
+// GetKeyIdentifier mocks base method.
+func (m *MockCA) GetKeyIdentifier() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetKeyIdentifier")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// GetKeyIdentifier indicates an expected call of GetKeyIdentifier.
+func (mr *MockCAMockRecorder) GetKeyIdentifier() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetKeyIdentifier", reflect.TypeOf((*MockCA)(nil).GetKeyIdentifier))
+}
+
+// GetPubKeyForPairing mocks base method.
+func (m *MockCA) GetPubKeyForPairing() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetPubKeyForPairing")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// GetPubKeyForPairing indicates an expected call of GetPubKeyForPairing.
+func (mr *MockCAMockRecorder) GetPubKeyForPairing() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPubKeyForPairing", reflect.TypeOf((*MockCA)(nil).GetPubKeyForPairing))
+}
+
+// String mocks base method.
+func (m *MockCA) String() string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "String")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// String indicates an expected call of String.
+func (mr *MockCAMockRecorder) String() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "String", reflect.TypeOf((*MockCA)(nil).String))
+}
+
+// MockCert is a mock of Cert interface.
+type MockCert struct {
+	ctrl     *gomock.Controller
+	recorder *MockCertMockRecorder
+}
+
+// MockCertMockRecorder is the mock recorder for MockCert.
+type MockCertMockRecorder struct {
+	mock *MockCert
+}
+
+// NewMockCert creates a new mock instance.
+func NewMockCert(ctrl *gomock.Controller) *MockCert {
+	mock := &MockCert{ctrl: ctrl}
+	mock.recorder = &MockCertMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockCert) EXPECT() *MockCertMockRecorder {
+	return m.recorder
+}
+
+// GetAuthorityKeyIdentifier mocks base method.
+func (m *MockCert) GetAuthorityKeyIdentifier() []byte {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAuthorityKeyIdentifier")
+	ret0, _ := ret[0].([]byte)
+	return ret0
+}
+
+// GetAuthorityKeyIdentifier indicates an expected call of GetAuthorityKeyIdentifier.
+func (mr *MockCertMockRecorder) GetAuthorityKeyIdentifier() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAuthorityKeyIdentifier", reflect.TypeOf((*MockCert)(nil).GetAuthorityKeyIdentifier))
+}
+
+// GetCAHostName mocks base method.
+func (m *MockCert) GetCAHostName() string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetCAHostName")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// GetCAHostName indicates an expected call of GetCAHostName.
+func (mr *MockCertMockRecorder) GetCAHostName() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCAHostName", reflect.TypeOf((*MockCert)(nil).GetCAHostName))
+}
+
+// GetCertType mocks base method.
+func (m *MockCert) GetCertType() crypto.CertType {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetCertType")
+	ret0, _ := ret[0].(crypto.CertType)
+	return ret0
+}
+
+// GetCertType indicates an expected call of GetCertType.
+func (mr *MockCertMockRecorder) GetCertType() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetCertType", reflect.TypeOf((*MockCert)(nil).GetCertType))
+}
+
+// GetExtName mocks base method.
+func (m *MockCert) GetExtName() map[string]string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetExtName")
+	ret0, _ := ret[0].(map[string]string)
+	return ret0
+}
+
+// GetExtName indicates an expected call of GetExtName.
+func (mr *MockCertMockRecorder) GetExtName() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetExtName", reflect.TypeOf((*MockCert)(nil).GetExtName))
+}
+
+// GetHostName mocks base method.
+func (m *MockCert) GetHostName() string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetHostName")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// GetHostName indicates an expected call of GetHostName.
+func (mr *MockCertMockRecorder) GetHostName() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetHostName", reflect.TypeOf((*MockCert)(nil).GetHostName))
+}
+
+// GetVerifyKey mocks base method.
+func (m *MockCert) GetVerifyKey() crypto.VerifyKey {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetVerifyKey")
+	ret0, _ := ret[0].(crypto.VerifyKey)
+	return ret0
+}
+
+// GetVerifyKey indicates an expected call of GetVerifyKey.
+func (mr *MockCertMockRecorder) GetVerifyKey() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVerifyKey", reflect.TypeOf((*MockCert)(nil).GetVerifyKey))
+}
+
+// String mocks base method.
+func (m *MockCert) String() string {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "String")
+	ret0, _ := ret[0].(string)
+	return ret0
+}
+
+// String indicates an expected call of String.
+func (mr *MockCertMockRecorder) String() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "String", reflect.TypeOf((*MockCert)(nil).String))
+}
+
+// VerifyCert mocks base method.
+func (m *MockCert) VerifyCert(caList []string, untrustedPubList [][]byte) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "VerifyCert", caList, untrustedPubList)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// VerifyCert indicates an expected call of VerifyCert.
+func (mr *MockCertMockRecorder) VerifyCert(caList, untrustedPubList interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VerifyCert", reflect.TypeOf((*MockCert)(nil).VerifyCert), caList, untrustedPubList)
 }
 
 // MockFlagReader is a mock of FlagReader interface.

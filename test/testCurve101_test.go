@@ -12,11 +12,42 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetRootOfUnity(t *testing.T) {
-	c := GetCurve101(true)
-	fmt.Println(c.GetRootOfUnity(8))
-	fmt.Println(c.GetRootOfUnity(4))
-	fmt.Println(c.GetRootOfUnity(2))
+func TestEquation(t *testing.T) {
+	module.SetInt64(101)
+	order.SetInt64(17)
+	iSquare.SetInt64(99)
+	Curve101 := &Curve{
+		A:   NewBigNum(&module, big.NewInt(0)),
+		B:   NewBigNum(&module, big.NewInt(3)),
+		Gx:  NewBigNum(&module, big.NewInt(1)),
+		Gy:  NewBigNum(&module, big.NewInt(2)),
+		G2x: NewXBigNum(&module, &iSquare, big.NewInt(36), big.NewInt(0)),
+		G2y: NewXBigNum(&module, &iSquare, big.NewInt(0), big.NewInt(31)),
+	}
+	Curve101.Module.Set(&module)
+	Curve101.Older.Set(&order)
+	Curve101.Square.Set(&iSquare)
+	G2g := Curve101.NewTwistPoint(one)
+	G2p := Curve101.NewTwistPoint(nil)
+	for i := int64(1); i < 17; i++ {
+		G2p.Add(G2p, G2g)
+		x := big.NewInt(0).Set(G2p.X.V)
+		y := big.NewInt(0).Set(G2p.Y.Vi)
+		yy := big.NewInt(0).Set(y)
+		xx := big.NewInt(0).Set(x)
+		x = x.Exp(x, big.NewInt(3), &module)
+		x.Add(x, big.NewInt(3))
+		x = x.Mod(x, &module)
+		y = y.Mul(y, y).Mul(y, &iSquare)
+		y = y.Mod(y, &module)
+		fmt.Printf("-------------[%v]: %v---------------\n", i, string(G2p.Marshal()))
+		fmt.Printf("左: %v * %v *j^2 = %v * %v *99 mod 101 = %v \n", yy, yy, yy, yy, y)
+		fmt.Printf("右: %v ^ 3 + 3   mod 101 = %v \n", xx, x)
+		if x.Cmp(y) != 0 {
+			panic("error")
+		}
+		fmt.Printf("左 = %v, 右 = %v\n", y, x)
+	}
 }
 
 func RandomG1(pairing crypto.Pairing, r io.Reader) (*big.Int, crypto.Point) {
