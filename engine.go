@@ -125,38 +125,33 @@ const (
 	GCM              = 0x30 << Symmetrical
 )
 
-//Function priority of plugins
-type Function interface {
-	ImplementAlgo() []int
+//Level priority of plugins
+type Level interface {
+	//GetLevel the second return value is reserved and has NO effect at present!
+	GetLevel() ([]int, uint8)
 }
 
 //PluginRandomFunc random function
 type PluginRandomFunc interface {
-	Function
+	Level
 	Rander() (io.Reader, error)
-}
-
-//PluginAccelerateFunc random function
-type PluginAccelerateFunc interface {
-	Function
-	Verify(key, sign [][]byte, hashRet [][]byte) (io.Reader, error)
 }
 
 //PluginHashFunc hash function
 type PluginHashFunc interface {
-	Function
+	Level
 	GetHash(mode int) (Hasher, error)
 }
 
 //PluginCryptFunc symmetric encryption and decryption function
 type PluginCryptFunc interface {
-	Function
+	Level
 	GetSecretKey(mode int, pwd, key []byte) (SecretKey, error)
 }
 
-//PluginVerifyFunc sign function
-type PluginVerifyFunc interface {
-	Function
+//PluginSignFuncL0 sign function
+type PluginSignFuncL0 interface {
+	Level
 	//GetVerifyKey enter a raw publicKey and mod, return a VerifyKey
 	//a raw publicKey means:
 	// 1) for sm2, key is 65bytes and in 0x04||X||Y form, see GMT0009-2012 7.1
@@ -164,33 +159,17 @@ type PluginVerifyFunc interface {
 	// 2) for ecdsa, key is in 0x04||X||Y. The length depends on the curve, for example,
 	//		65 bytes for secp256k1 and 133 for secp521r1, see 2.3.3 in [SEC1] uncompressed form.
 	//		https://www.rfc-editor.org/rfc/rfc5480.txt may help
-	// 3) for rsa, key is in PKCS#1 form, see RFC2313 RSAPublicKey
-	//		RSAPublicKey ::= SEQUENCE {
-	//     		modulus INTEGER, -- n
-	//     		publicExponent INTEGER -- e }
-	//		https://www.rfc-editor.org/rfc/rfc2313.txt may help
 	GetVerifyKey(key []byte, mode int) (VerifyKey, error)
 }
 
-//PluginDecKeyFunc asymmetric decryption function
-//type PluginDecKeyFunc interface {
-//	Level
-//	//GetDecKey enter index or raw privat key to generate a DecKey, key will not be persistent
-//	// a raw private key is a big integer
-//	GetDecKey(key string) (DecKey, error)
-//	//CreateDecKey generate a DecKey, and return index or key in raw form
-//	//if persistent is true, key should be persistent and return index
-//	//	or persistent is false, key should be persistent and output should in raw form
-//	CreateDecKey() (index string, k DecKey, err error)
-//	//GetEncKey enter a raw publicKey and mod, return a VerifyKey
-//	//see GetVerifyKey's comment for the meaning of a raw publicKey
-//	GetEncKey(key []byte, mode int) (EncKey, error)
-//}
-
-type PluginCerificateFunc interface {
-	PluginVerifyFunc
+type PluginSignFuncL1 interface {
+	PluginSignFuncL0
 	//GetSignKey parse printable keyIndex to SignKey
 	GetSignKey(keyIndex string) (SignKey, error)
+}
+
+type PluginSignFuncL2 interface {
+	PluginSignFuncL1
 	//CreateSignKey generate a sign key
 	CreateSignKey() (index string, k SignKey, err error)
 	//ParseCertificate for x509, input is PEM or self-defined TXT
@@ -199,15 +178,15 @@ type PluginCerificateFunc interface {
 	ParseAllCA([]string) ([]CA, error)
 }
 
-type PluginCerificateDistributedCAFunc interface {
-	PluginCerificateFunc
+type PluginSignFuncL3 interface {
+	PluginSignFuncL2
 	//Issue ext for NVP and LP: key is pkix.Platform, pkix.Version, pkix.VP
 	Issue(ca CA, hostname string, ct CertType, ext map[string]string, vk VerifyKey) ([]byte, error)
 	GenerateLocalCA(hostName string) (skIndex string, ca CA, err error)
 }
 
 type PluginGenerateSessionKeyFunc interface {
-	Function
+	Level
 	KeyAgreementInit() (data1, data2ToPeer []byte, err error)
 	KeyAgreementFinal(algo string, data1, data2FromPeer []byte) (SecretKey, error)
 }
