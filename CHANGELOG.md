@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.15](///compare/v0.0.14...v0.0.15) (2022-09-16)
+
+
+### Features
+
+* **all:** all ([9852259](///commit/9852259701270c7521ea7ac781883c8b581a54e5))
+* **engine.go:** remove PluginDecKeyFunc ([f64206b](///commit/f64206b17bd92a7801b203c6566e1507d89cacb1))
+
 ### [0.0.14](///compare/v0.0.13...v0.0.14) (2022-07-11)
 
 
