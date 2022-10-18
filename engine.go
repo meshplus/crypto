@@ -1,6 +1,7 @@
 package crypto
 
 import (
+	"crypto/elliptic"
 	"hash"
 	"io"
 )
@@ -187,8 +188,8 @@ type PluginSignFuncL3 interface {
 
 type PluginGenerateSessionKeyFunc interface {
 	Level
-	KeyAgreementInit() (data1, data2ToPeer []byte, err error)
-	KeyAgreementFinal(algo string, data1, data2FromPeer []byte) (SecretKey, error)
+	KeyAgreementInit(curve elliptic.Curve) (data1, data2ToPeer []byte, err error)
+	KeyAgreementFinal(curve elliptic.Curve, algo string, data1, data2FromPeer []byte) (SecretKey, error)
 }
 
 type CA interface {
@@ -207,7 +208,7 @@ type Cert interface {
 	GetAuthorityKeyIdentifier() []byte
 	String() string
 	GetVerifyKey() VerifyKey
-	VerifyCert(caList []string, untrustedPubList [][]byte) error
+	VerifyCert(caList []string) error
 }
 
 //FlagReader reader use as flag
