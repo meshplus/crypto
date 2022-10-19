@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.16](///compare/v0.0.15...v0.0.16) (2022-10-19)
+
+
+### Bug Fixes
+
+* **all:** #flato-5134, modify session key interface ([f610e55](///commit/f610e5559e109f3b5133ce62ecec5f6448dc08f1)), closes [#flato-5134](///issues/flato-5134)
+
 ### [0.0.15](///compare/v0.0.14...v0.0.15) (2022-09-16)
 
 

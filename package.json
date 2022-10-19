@@ -1,6 +1,6 @@
 {
   "name": "crypto",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Flato is a high performance blockchain platform",
   "main": "index.js",
   "scripts": {
