@@ -57,7 +57,12 @@ func (b *XBigNumForTest) MarshalJSON() ([]byte, error) {
 
 //MontBytes Montgomery Byte String
 func (b *XBigNumForTest) MontBytes(res []byte) []byte {
-	panic("need implement")
+	return b.Regular(res)
+}
+
+//FromMont from Montgomery Bytes
+func (b *XBigNumForTest) FromMont(bytes []byte) crypto.FieldElement {
+	return b.FromRegular(bytes)
 }
 
 //Add add

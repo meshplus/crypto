@@ -124,7 +124,7 @@ func (c *Curve) GetRootOfUnity(u uint64) (crypto.FieldElement, uint64, error) {
 		maxAll, maxSize int
 	)
 
-	//5 8 6 13 14 2 10 16 12 9 11 4 3 15
+	//1 5 8 6 13 14 2 10 16 12 9 11 4 3 15 7
 	switch c.Older.Int64() {
 	case 17:
 		g = c.NewScalar().SetInt64(5)

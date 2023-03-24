@@ -29,6 +29,8 @@ Eg.`mockgen -destination mock/mock_crypto.go -package crypto -source crypto.go`
 
 Eg.`mockgen -destination mock/mock_engine.go -package crypto -source engine.go`
 
+Eg.`mockgen -destination mock/vc.go -package crypto -source vc.go`
+
 ## GitCZ
 
 **Note**: Please use command `npm install` if you are the first time to use `git cz` in this repo.

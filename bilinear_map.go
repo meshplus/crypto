@@ -51,8 +51,13 @@ type FieldElement interface {
 	// sets z to that value (in Montgomery form), and returns z.
 	FromRegular(content []byte) FieldElement
 
+	//ToBigInt convert to *big.Int with regular mode
+	ToBigInt(int2 *big.Int) *big.Int
+
 	//MontBytes set and return 'res' with bytes in Montgomery form
 	MontBytes(res []byte) []byte
+	//FromMont 'in' mast have enough length
+	FromMont(in []byte) FieldElement
 
 	//GetModule set 'b' to 21888242871839275222246405745257275088548364400416034343698204186575808495617
 	GetModule(*big.Int)
@@ -83,7 +88,7 @@ var ErrFFT = errors.New("not support fft")
 
 //AlgebraicSys algebra system
 type AlgebraicSys interface {
-	Marshaller
+	Marshaller  //8bytes
 	GetModule() *big.Int
 	Name() string
 	NewScalar() FieldElement //fr

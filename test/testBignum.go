@@ -57,7 +57,12 @@ func (b *BigNumForTest) MarshalJSON() ([]byte, error) {
 
 //MontBytes Montgomery Byte String
 func (b *BigNumForTest) MontBytes(bytes []byte) []byte {
-	panic("need implement")
+	return b.Regular(bytes)
+}
+
+//FromMont from Montgomery Bytes
+func (b *BigNumForTest) FromMont(bytes []byte) crypto.FieldElement {
+	return b.FromRegular(bytes)
 }
 
 //Add add
@@ -211,10 +216,8 @@ func (b *BigNumForTest) SetRandom(reader io.Reader) crypto.FieldElement {
 //Regular regular
 func (b *BigNumForTest) Regular(bytes []byte) []byte {
 	tmp := b.V.Bytes()
-	if len(tmp) == 0 {
-		return append(bytes, 0)
-	}
-	return append(bytes, tmp...)
+	copy(bytes,tmp)
+	return bytes
 }
 
 // FromRegular From regular

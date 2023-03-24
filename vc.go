@@ -1,7 +1,6 @@
 package crypto
 
 import (
-	"bytes"
 	"sync"
 )
 
@@ -10,10 +9,10 @@ const MethodName = "NewSDK"
 
 //curve name
 const (
-	CurveNameBN254          = "bn254"
-	CurveNameSM9            = "sm9"
-	CurveNameCurve101       = "testCurve101"
-	CurveNameCurve101NonFFT = "testCurve101NonFFT"
+	CurveNameBN254          = "bn254___"
+	CurveNameSM9            = "sm9_____"
+	CurveNameCurve101       = "testC101"
+	CurveNameCurve101NonFFT = "tC101NFT"
 )
 
 //NewSDKFunc plugin function type
@@ -33,7 +32,7 @@ type ChainSDK interface {
 	//ChainType 返回链的类型
 	ChainType() string
 	//InvokeFinish 调用Finish方法, namespace是分区（通道），address是合约地址（名称）
-	InvokeFinish(nodes []string, address, taskID, proof, result, error string) ([]byte, error)
+	InvokeFinish(nodes []string, address, taskID, proof, result, err string) ([]byte, error)
 	//RegisterListening 注册监听EVENT_FINISH和EVENT_COMPUTE事件
 	RegisterListening(proxyAddress, businessAddress []string) (chan *Event, error)
 	//UnregisterListening 解注册事件
@@ -81,7 +80,7 @@ type Response struct {
 	Response []byte `json:"response"`
 }
 
-var pairing sync.Map
+var pairing sync.Map //string -> Pairing
 
 //RegisterPairing register pairing
 func RegisterPairing(p Pairing) {
@@ -92,7 +91,7 @@ func RegisterPairing(p Pairing) {
 func UnMarshalPairing(data []byte) Pairing {
 	var ret Pairing
 	pairing.Range(func(key, value interface{}) bool {
-		if bytes.Equal(data, []byte(key.(string))) {
+		if string(data) == key.(string) {
 			ret = value.(Pairing)
 			return false
 		}
