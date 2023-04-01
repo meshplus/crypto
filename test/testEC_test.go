@@ -6,6 +6,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/meshplus/crypto"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -185,4 +186,26 @@ func testPairing(t *testing.T, a, b, c *big.Int) {
 	// k1, k2 and k3 will all be equal.
 	assert.Equal(t, k1.Marshal(), k2.Marshal())
 	assert.Equal(t, k1.Marshal(), k3.Marshal())
+}
+
+func TestMarshal(t *testing.T) {
+	Curve101 := GetCurve101(true)
+
+	t.Run("G1", func(t *testing.T) {
+		t.Run("base", func(t *testing.T) {
+			g1 := Curve101.GetBase(crypto.G1)
+			assert.Equal(t, "(1,2,1)", string(g1.Marshal()))
+		})
+
+		t.Run("inf", func(t *testing.T) {
+			g1 := Curve101.NewPoint(crypto.G1)
+			assert.Equal(t, "INFINITY", string(g1.Marshal()))
+		})
+
+		t.Run("other point", func(t *testing.T) {
+			g1 := Curve101.GetBase(crypto.G1)
+			g1.ScalarBaseMult(big.NewInt(2))
+			assert.Equal(t, "(68,74,2)", string(g1.Marshal()))
+		})
+	})
 }

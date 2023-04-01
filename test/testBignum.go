@@ -215,9 +215,7 @@ func (b *BigNumForTest) SetRandom(reader io.Reader) crypto.FieldElement {
 
 //Regular regular
 func (b *BigNumForTest) Regular(bytes []byte) []byte {
-	tmp := b.V.Bytes()
-	copy(bytes,tmp)
-	return bytes
+	return append(bytes, b.V.Bytes()...)
 }
 
 // FromRegular From regular
