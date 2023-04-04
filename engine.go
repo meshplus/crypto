@@ -121,6 +121,7 @@ const (
 	Des3             = 0x03 << Symmetrical
 	TEE              = 0x04 << Symmetrical
 	SelfDefinedCrypt = 0x05 << Symmetrical
+	WhiteBox         = 0x06 << Symmetrical
 	CBC              = 0x10 << Symmetrical
 	ECB              = 0x20 << Symmetrical
 	GCM              = 0x30 << Symmetrical
