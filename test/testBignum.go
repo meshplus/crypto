@@ -57,7 +57,9 @@ func (b *BigNumForTest) MarshalJSON() ([]byte, error) {
 
 //MontBytes Montgomery Byte String
 func (b *BigNumForTest) MontBytes(bytes []byte) []byte {
-	return b.Regular(bytes)
+	ret := b.Regular(nil)
+	copy(bytes, ret)
+	return bytes
 }
 
 //FromMont from Montgomery Bytes

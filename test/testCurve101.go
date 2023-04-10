@@ -301,12 +301,12 @@ func GetCurve97(fft bool) crypto.Pairing {
 func GetCurve257(fft bool) crypto.Pairing {
 	Curve257 := &Curve{
 		SupportFFT: fft,
-		Module:     module,
+		Module:     *big.NewInt(3083),
 		A:          NewBigNum(&module, big.NewInt(0)),
-		B:          NewBigNum(&module, big.NewInt(3)),
-		Gx:         NewBigNum(&module, big.NewInt(1)),
-		Gy:         NewBigNum(&module, big.NewInt(2)),
-		Older:      *big.NewInt(257),
+		B:          NewBigNum(&module, big.NewInt(2)),
+		Gx:         NewBigNum(&module, big.NewInt(3082)),
+		Gy:         NewBigNum(&module, big.NewInt(1)),
+		Older:      *big.NewInt(257), //协因子12
 
 		Square: iSquare,
 		G2x:    NewXBigNum(&module, &iSquare, big.NewInt(36), big.NewInt(0)),
