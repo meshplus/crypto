@@ -194,6 +194,14 @@ func (b *XBigNumForTest) IsOne() bool {
 	return b.V.Cmp(one) == 0 && b.Vi.BitLen() == 0
 }
 
+//IsNegOne is neg one
+func (b *XBigNumForTest) IsNegOne() bool {
+	p := new(big.Int).Set(&b.P)
+	p.Sub(p, one)
+	b.V.Mod(b.V, &b.P)
+	return b.V.Cmp(p) == 0 && b.Vi.BitLen() == 0
+}
+
 //IsNeg is negative
 func (b *XBigNumForTest) IsNeg() bool {
 	panic("need implement")

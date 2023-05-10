@@ -162,6 +162,14 @@ func (b *BigNumForTest) IsOne() bool {
 	return b.V.Cmp(big.NewInt(1)) == 0
 }
 
+//IsNegOne is neg one
+func (b *BigNumForTest) IsNegOne() bool {
+	p := new(big.Int).Set(&b.P)
+	p.Sub(p, one)
+	b.V.Mod(b.V, &b.P)
+	return b.V.Cmp(p) == 0
+}
+
 //Set set value
 func (b *BigNumForTest) Set(element crypto.FieldElement) crypto.FieldElement {
 	o := element.(*BigNumForTest)

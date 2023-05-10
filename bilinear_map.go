@@ -35,6 +35,7 @@ type FieldElement interface {
 	IsZero() bool
 	IsOne() bool
 	IsNeg() bool
+	IsNegOne() bool
 
 	Set(FieldElement) FieldElement
 	SetOne() FieldElement
@@ -88,7 +89,7 @@ var ErrFFT = errors.New("not support fft")
 
 //AlgebraicSys algebra system
 type AlgebraicSys interface {
-	Marshaller  //8bytes
+	Marshaller //8bytes
 	GetModule() *big.Int
 	Name() string
 	NewScalar() FieldElement //fr
