@@ -91,6 +91,7 @@ var ErrFFT = errors.New("not support fft")
 type AlgebraicSys interface {
 	Marshaller //8bytes
 	GetModule() *big.Int
+	FieldLength() int
 	Name() string
 	NewScalar() FieldElement //fr
 	//NewField() FieldElement  //fp

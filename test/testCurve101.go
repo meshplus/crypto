@@ -103,6 +103,10 @@ func (c *Curve) GetModule() *big.Int {
 	return new(big.Int).Set(&c.Older)
 }
 
+func (c *Curve) FieldLength() int {
+	return 1
+}
+
 //NewScalar new scalar
 func (c *Curve) NewScalar() crypto.FieldElement {
 	return NewBigNum(&c.Older, new(big.Int))
