@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.18"></a>
+## [0.0.18](http://github.com/meshplus/crypto/compare/v0.0.17...v0.0.18) (2024-05-09)
+
+
+### Bug Fixes
+
+* **mock:** replace mock module with go.uber.org/mock ([bcb9cae](http://github.com/meshplus/crypto/commits/bcb9cae))
+
+
+
 <a name="0.0.18-alpha"></a>
 ## [0.0.18-alpha](http://github.com/meshplus/crypto/compare/v0.0.18...v0.0.18-alpha) (2024-05-09)
 
