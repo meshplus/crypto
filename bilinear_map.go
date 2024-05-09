@@ -7,7 +7,9 @@ import (
 	"sync"
 )
 
-//Position position in Pairing
+//go:generate mockgen -destination ./mock/vc.go -package crypto -source ./bilinear_map.go
+
+// Position position in Pairing
 type Position int
 
 // Position in Pairing
@@ -17,7 +19,7 @@ const (
 	GT
 )
 
-//FieldElement in Montgomery From
+// FieldElement in Montgomery From
 type FieldElement interface {
 	UnmarshalJSON([]byte) error
 	MarshalJSON() ([]byte, error)
@@ -61,7 +63,7 @@ type FieldElement interface {
 	Copy() FieldElement
 }
 
-//Point elliptic point
+// Point elliptic point
 type Point interface {
 	Marshaller
 	Add(Point, Point) Point
@@ -78,10 +80,10 @@ type Point interface {
 	IsInfinity() bool
 }
 
-//ErrFFT not support fft
+// ErrFFT not support fft
 var ErrFFT = errors.New("not support fft")
 
-//AlgebraicSys algebra system
+// AlgebraicSys algebra system
 type AlgebraicSys interface {
 	Marshaller
 	GetModule() *big.Int
@@ -92,7 +94,7 @@ type AlgebraicSys interface {
 	GetRootOfUnity(uint64) (FieldElement, uint64, error)
 }
 
-//Pairing pairing of elliptic
+// Pairing pairing of elliptic
 type Pairing interface {
 	AlgebraicSys
 	Pair([]Point, []Point) Point
@@ -105,7 +107,7 @@ type Pairing interface {
 	BatchScalarMultiplicationG2(scalars []*big.Int, ret []Point)
 }
 
-//Marshaller marshal and unmarshal
+// Marshaller marshal and unmarshal
 type Marshaller interface {
 	Marshal() []byte
 	Unmarshal([]byte) ([]byte, error)
@@ -117,12 +119,12 @@ var bigPool = sync.Pool{
 	},
 }
 
-//GetBigInt get *big.Int
+// GetBigInt get *big.Int
 func GetBigInt() *big.Int {
 	return bigPool.Get().(*big.Int)
 }
 
-//PutBigInt put *big.Int
+// PutBigInt put *big.Int
 func PutBigInt(in *big.Int) {
 	if in == nil {
 		return
