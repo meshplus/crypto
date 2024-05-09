@@ -6,6 +6,8 @@ import (
 )
 
 // Hasher is a interface that provides hash algorithms
+//
+//go:generate mockgen -destination ./mock/mock_crypto.go -package crypto -source ./crypto.go
 type Hasher interface {
 	hash.Hash
 	// Hash hashes messages msg.
@@ -30,7 +32,7 @@ type Decryptor interface {
 }
 
 // Cryptor is interface that provide crypto function
-//deprecated
+// deprecated
 type Cryptor interface {
 	Encryptor
 	Decryptor
@@ -54,7 +56,7 @@ type Verifier interface {
 	Verify(k, signature, digest []byte) (valid bool, err error)
 }
 
-//Signer sign
+// Signer sign
 type Signer interface {
 	Key
 	Sign(k, digest []byte, reader io.Reader) ([]byte, error)

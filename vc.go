@@ -5,10 +5,10 @@ import (
 	"sync"
 )
 
-//MethodName plugin function name
+// MethodName plugin function name
 const MethodName = "NewSDK"
 
-//curve name
+// curve name
 const (
 	CurveNameBN254          = "bn254"
 	CurveNameSM9            = "sm9"
@@ -16,19 +16,19 @@ const (
 	CurveNameCurve101NonFFT = "testCurve101NonFFT"
 )
 
-//NewSDKFunc plugin function type
+// NewSDKFunc plugin function type
 type NewSDKFunc func(path, user, namespace string, logger Logger) (ChainSDK, error)
 
-//EventType type EventType
+// EventType type EventType
 type EventType int
 
-//event type
+// event type
 const (
 	EventTypeCompute EventType = iota
 	EventTypeFinish
 )
 
-//ChainSDK sdk for specific blockchain
+// ChainSDK sdk for specific blockchain
 type ChainSDK interface {
 	//ChainType 返回链的类型
 	ChainType() string
@@ -40,7 +40,7 @@ type ChainSDK interface {
 	UnregisterListening(address string) error
 }
 
-//Event event
+// Event event
 type Event struct {
 	ChannelID string    `json:"channelID"`
 	Type      EventType `json:"type"`
@@ -49,7 +49,7 @@ type Event struct {
 	BlockNum  int       `json:"blockNum"`
 }
 
-//EventCompute event compute
+// EventCompute event compute
 type EventCompute struct {
 	TaskID                 string   `json:"taskID"`
 	CircuitID              [32]byte `json:"circuitID"`
@@ -61,7 +61,7 @@ type EventCompute struct {
 	Input                  string   `json:"input"`
 }
 
-//EventFinish event finish
+// EventFinish event finish
 type EventFinish struct {
 	TaskID      string   `json:"taskID"`
 	CircuitID   [32]byte `json:"circuitID"`
@@ -72,7 +72,7 @@ type EventFinish struct {
 	NextCompute []byte   `json:"nextCompute"`
 }
 
-//Response callback response
+// Response callback response
 type Response struct {
 	Continue bool `json:"continue"`
 	//NextParam: proxyContractAddr, input, businessContractAddr, businessContractMethod, WebHook and WebHookBodyPattern
@@ -83,12 +83,12 @@ type Response struct {
 
 var pairing sync.Map
 
-//RegisterPairing register pairing
+// RegisterPairing register pairing
 func RegisterPairing(p Pairing) {
 	pairing.Store(p.Name(), p)
 }
 
-//UnMarshalPairing unmarshal pairing
+// UnMarshalPairing unmarshal pairing
 func UnMarshalPairing(data []byte) Pairing {
 	var ret Pairing
 	pairing.Range(func(key, value interface{}) bool {

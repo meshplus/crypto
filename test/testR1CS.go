@@ -6,27 +6,27 @@ import (
 	"github.com/meshplus/crypto"
 )
 
-//R1csForTest r1cs
+// R1csForTest r1cs
 type R1csForTest struct {
 	L, R, O []map[int]crypto.FieldElement
 }
 
-//GetSignalByID get signal by ID
+// GetSignalByID get signal by ID
 func (r *R1csForTest) GetSignalByID(nowid int) (id, reoffset int, prefix string, value crypto.FieldElement) {
 	panic("implement me")
 }
 
-//NextVariable next Variable
+// NextVariable next Variable
 func (r *R1csForTest) NextVariable(buf []crypto.FieldElement) (int, []crypto.FieldElement) {
 	panic("implement me")
 }
 
-//ConstraintsNum constraints number
+// ConstraintsNum constraints number
 func (r *R1csForTest) ConstraintsNum() uint64 {
 	return uint64(len(r.L))
 }
 
-//Next next
+// Next next
 func (r *R1csForTest) Next(pos *int) (index int, a, b, c map[int]crypto.FieldElement) {
 	*pos++
 	if *pos == len(r.L) {
@@ -35,7 +35,7 @@ func (r *R1csForTest) Next(pos *int) (index int, a, b, c map[int]crypto.FieldEle
 	return *pos, r.L[*pos], r.R[*pos], r.O[*pos] //todo ?? r.pos -1
 }
 
-//GetR1CSForTest get r1cs
+// GetR1CSForTest get r1cs
 func GetR1CSForTest(t *testing.T, L, R, O [] /*N*/ [] /*M*/ crypto.FieldElement) crypto.R1CSIterator {
 	if len(L) != len(R) || len(R) != len(O) {
 		t.Fatalf("length of L, R, O is diffrient")

@@ -8,7 +8,7 @@ import (
 	"github.com/meshplus/crypto"
 )
 
-//SuperLogger super logger
+// SuperLogger super logger
 type SuperLogger interface {
 	SetEnableCaller(enable bool)
 	crypto.Logger
@@ -94,12 +94,12 @@ func (l *logger) Criticalf(format string, v ...interface{}) {
 	_ = l.log.Output(2, "[CRIT] "+fmt.Sprintf(format, v...))
 }
 
-//GetBasicLogger get basic Logger
+// GetBasicLogger get basic Logger
 func GetBasicLogger(writer io.Writer) crypto.Logger {
 	return GetBasicLoggerWithLevel(writer, crypto.DEBUG)
 }
 
-//GetBasicLoggerWithLevel get basic Logger
+// GetBasicLoggerWithLevel get basic Logger
 func GetBasicLoggerWithLevel(writer io.Writer, level int) crypto.Logger {
 	return &logger{
 		log:   log.New(writer, "", log.LstdFlags|log.Lshortfile),

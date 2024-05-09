@@ -72,8 +72,8 @@ func (C *CSForKeyTest) Next(pos *int) (index int, a, b, c map[int]crypto.FieldEl
 	return -1, nil, nil, nil
 }
 
-//1 x out; sym1 y sym2   这个case中，x看做输出，和out看做公开输入，没有隐私输入
-//m=6, l=3
+// 1 x out; sym1 y sym2   这个case中，x看做输出，和out看做公开输入，没有隐私输入
+// m=6, l=3
 func (C *CSForKeyTest) SignalNum() int {
 	return 6
 }

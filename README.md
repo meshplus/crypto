@@ -14,7 +14,7 @@ gitCrypto
 
 ## Mockgen
 
-Install **mockgen** : `go get github.com/golang/mock/mockgen`
+Install **mockgen** : `go get go.uber.org/mock/mockgen`
 
 How to use?
    

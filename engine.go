@@ -6,34 +6,36 @@ import (
 	"io"
 )
 
-//SecretKey sym
+//go:generate mockgen -destination ./mock/mock_engine.go -package crypto -source ./engine.go
+
+// SecretKey sym
 type SecretKey interface {
 	Encrypt(src []byte, reader io.Reader) []byte
 	Decrypt(src []byte) []byte
 	Destroy()
 }
 
-//PublicKey represents the public key, capable of verification and encryption
+// PublicKey represents the public key, capable of verification and encryption
 type PublicKey interface {
 	VerifyKey
 	EncKey
 }
 
-//PrivateKey represents the private key, able to sign and decrypt
+// PrivateKey represents the private key, able to sign and decrypt
 type PrivateKey interface {
 	SignKey
 	DecKey
 }
 
-//SignKey private key which can sign
+// SignKey private key which can sign
 type SignKey interface {
 	VerifyKey
 	Sign(msg []byte, hasher hash.Hash, rand io.Reader) ([]byte, error)
 	Destroy()
 }
 
-//VerifyKey public key which can verify
-//for more information, see GetVerifyKey's comment
+// VerifyKey public key which can verify
+// for more information, see GetVerifyKey's comment
 type VerifyKey interface {
 	GetKeyInfo() int
 	Verify(msg []byte, hasher hash.Hash, sig []byte) bool
@@ -47,7 +49,7 @@ type VerifyKey interface {
 	RichBytes() []byte
 }
 
-//EncKey public key which can encrypt
+// EncKey public key which can encrypt
 type EncKey interface {
 	GetKeyInfo() int
 	Encrypt(msg []byte, reader io.Reader) ([]byte, error)
@@ -55,7 +57,7 @@ type EncKey interface {
 	Bytes() []byte
 }
 
-//DecKey private key which can decrypt
+// DecKey private key which can decrypt
 type DecKey interface {
 	EncKey
 	Decrypt(cipher []byte) ([]byte, error)
@@ -71,7 +73,7 @@ const (
 	Symmetrical = 16
 )
 
-//algorithm identifier const value table
+// algorithm identifier const value table
 const (
 	//None unknown algorithm type, type information is hidden in the content, for example PKCS8
 	None = 0x0
@@ -127,31 +129,31 @@ const (
 	GCM              = 0x30 << Symmetrical
 )
 
-//Level priority of plugins
+// Level priority of plugins
 type Level interface {
 	//GetLevel the second return value is reserved and has NO effect at present!
 	GetLevel() ([]int, uint8)
 }
 
-//PluginRandomFunc random function
+// PluginRandomFunc random function
 type PluginRandomFunc interface {
 	Level
 	Rander() (io.Reader, error)
 }
 
-//PluginHashFunc hash function
+// PluginHashFunc hash function
 type PluginHashFunc interface {
 	Level
 	GetHash(mode int) (Hasher, error)
 }
 
-//PluginCryptFunc symmetric encryption and decryption function
+// PluginCryptFunc symmetric encryption and decryption function
 type PluginCryptFunc interface {
 	Level
 	GetSecretKey(mode int, pwd, key []byte) (SecretKey, error)
 }
 
-//PluginSignFuncL0 sign function
+// PluginSignFuncL0 sign function
 type PluginSignFuncL0 interface {
 	Level
 	//GetVerifyKey enter a raw publicKey and mod, return a VerifyKey
@@ -212,15 +214,16 @@ type Cert interface {
 	VerifyCert(caList []string) error
 }
 
-//FlagReader reader use as flag
+// FlagReader reader use as flag
 type FlagReader interface {
 	io.Reader
 	GetFlag() int
 }
 
-//CertType a data type to present cert type，like tcert，ecert and so on
-//to install stringer: go install golang.org/x/tools/cmd/...@v0.1.12
-//go:generate go stringer -type CertType -linecomment
+// CertType a data type to present cert type，like tcert，ecert and so on
+// to install stringer: go install golang.org/x/tools/cmd/...@v0.1.12
+//
+//go:generate stringer -type CertType -linecomment
 type CertType int
 
 // the value of CertType

@@ -1,6 +1,6 @@
 package crypto
 
-//context status
+// context status
 const (
 	DEBUG = iota
 	Info
@@ -9,7 +9,7 @@ const (
 	Error
 )
 
-//Logger interface
+// Logger interface
 type Logger interface {
 	Debug(v ...interface{})
 	Debugf(format string, v ...interface{})

@@ -8,7 +8,7 @@ import (
 	"github.com/meshplus/crypto"
 )
 
-//NewCurvePoint new curve point
+// NewCurvePoint new curve point
 func (c *Curve) NewCurvePoint(scalar *big.Int) *CurvePoint {
 	ret := &CurvePoint{
 		C: c,
@@ -40,7 +40,7 @@ func (c *Curve) NewCurvePoint(scalar *big.Int) *CurvePoint {
 	return ret
 }
 
-//CurvePoint point
+// CurvePoint point
 type CurvePoint struct {
 	C     *Curve
 	X, Y  *BigNumForTest
@@ -48,17 +48,17 @@ type CurvePoint struct {
 	Coef  crypto.FieldElement
 }
 
-//DLP ECDLP
+// DLP ECDLP
 func (c *CurvePoint) DLP() *BigNumForTest {
 	return c.Coef.(*BigNumForTest)
 }
 
-//IsInfinity return bool
+// IsInfinity return bool
 func (c *CurvePoint) IsInfinity() bool {
 	return c.IsInf
 }
 
-//Add add
+// Add add
 func (c *CurvePoint) Add(p1 crypto.Point, p2 crypto.Point) crypto.Point {
 	a, b := p1.(*CurvePoint), p2.(*CurvePoint)
 	tmp := a.Coef.Copy().Add(a.Coef, b.Coef)
@@ -107,7 +107,7 @@ func (c *CurvePoint) Add(p1 crypto.Point, p2 crypto.Point) crypto.Point {
 	return c
 }
 
-//Set set value
+// Set set value
 func (c *CurvePoint) Set(p crypto.Point) crypto.Point {
 	a := p.(*CurvePoint)
 	c.IsInf = a.IsInf
@@ -117,7 +117,7 @@ func (c *CurvePoint) Set(p crypto.Point) crypto.Point {
 	return c
 }
 
-//Double double
+// Double double
 func (c *CurvePoint) Double(p crypto.Point) crypto.Point {
 	a := p.(*CurvePoint)
 	if a.IsInf {
@@ -147,7 +147,7 @@ func (c *CurvePoint) Double(p crypto.Point) crypto.Point {
 	return c
 }
 
-//ScalarMult scalar multiplication
+// ScalarMult scalar multiplication
 func (c *CurvePoint) ScalarMult(a crypto.Point, scalar *big.Int) crypto.Point {
 	tmp, t := c.C.NewCurvePoint(nil), c.C.NewCurvePoint(nil)
 	tmpBig := new(big.Int).SetBytes(a.(*CurvePoint).Coef.Regular(nil))
@@ -187,7 +187,7 @@ func (c *CurvePoint) ScalarMult(a crypto.Point, scalar *big.Int) crypto.Point {
 	return c
 }
 
-//ScalarBaseMult scalar multiplication with Base
+// ScalarBaseMult scalar multiplication with Base
 func (c *CurvePoint) ScalarBaseMult(e *big.Int) crypto.Point {
 	c.IsInf = false
 	c.X.Set(c.C.Gx)
@@ -197,17 +197,17 @@ func (c *CurvePoint) ScalarBaseMult(e *big.Int) crypto.Point {
 	return c
 }
 
-//GetPosition get position
+// GetPosition get position
 func (c *CurvePoint) GetPosition() crypto.Position {
 	return crypto.G1
 }
 
-//GetPairing get pairing
+// GetPairing get pairing
 func (c *CurvePoint) GetPairing() crypto.Pairing {
 	return nil
 }
 
-//Marshal to bytes
+// Marshal to bytes
 func (c *CurvePoint) Marshal() []byte {
 	if c.IsInf {
 		return []byte("INFINITY")
@@ -222,7 +222,7 @@ func (c *CurvePoint) Marshal() []byte {
 	return []byte(fmt.Sprintf("(%v,%v,%v)", a, b, tmp.Text(10)))
 }
 
-//Unmarshal parse
+// Unmarshal parse
 func (c *CurvePoint) Unmarshal(m []byte) ([]byte, error) {
 	if string(m) == "INFINITY" {
 		c.SetInfinity()
@@ -241,7 +241,7 @@ func (c *CurvePoint) Unmarshal(m []byte) ([]byte, error) {
 	return nil, nil
 }
 
-//Neg neg
+// Neg neg
 func (c *CurvePoint) Neg(point crypto.Point) crypto.Point {
 	c.Set(point)
 	c.Y.Neg(c.Y)
@@ -249,7 +249,7 @@ func (c *CurvePoint) Neg(point crypto.Point) crypto.Point {
 	return c
 }
 
-//SetInfinity set infinity
+// SetInfinity set infinity
 func (c *CurvePoint) SetInfinity() {
 	c.X.SetZero()
 	c.Y.SetZero()

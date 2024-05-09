@@ -17,7 +17,7 @@ var twistTable map[string]big.Int
 var initCurveOnce sync.Once
 var one = big.NewInt(1)
 
-//Curve101 a instance of a Curve101
+// Curve101 a instance of a Curve101
 var module big.Int
 var order big.Int
 var iSquare big.Int
@@ -30,7 +30,7 @@ func init() {
 	crypto.RegisterPairing(GetCurve101(true))
 }
 
-//GetCurve101 get a curve for test
+// GetCurve101 get a curve for test
 func GetCurve101(fft bool) crypto.Pairing {
 	Curve101 := &Curve{
 		SupportFFT: fft,
@@ -65,7 +65,7 @@ func GetCurve101(fft bool) crypto.Pairing {
 	return Curve101
 }
 
-//Curve Y^2=X^3+ax+b mod Module
+// Curve Y^2=X^3+ax+b mod Module
 type Curve struct {
 	SupportFFT bool
 	Module     big.Int
@@ -77,7 +77,7 @@ type Curve struct {
 	G2x, G2y *XBigNumForTest
 }
 
-//Marshal to bytes
+// Marshal to bytes
 func (c *Curve) Marshal() []byte {
 	if c.SupportFFT {
 		return []byte(crypto.CurveNameCurve101)
@@ -85,7 +85,7 @@ func (c *Curve) Marshal() []byte {
 	return []byte(crypto.CurveNameCurve101NonFFT)
 }
 
-//Unmarshal parse
+// Unmarshal parse
 func (c *Curve) Unmarshal(data []byte) ([]byte, error) {
 	if bytes.Contains(data, []byte(crypto.CurveNameCurve101NonFFT)) {
 		c.SupportFFT = false
@@ -98,21 +98,21 @@ func (c *Curve) Unmarshal(data []byte) ([]byte, error) {
 	return data, errors.New("curve: illegal data")
 }
 
-//GetModule get module
+// GetModule get module
 func (c *Curve) GetModule() *big.Int {
 	return new(big.Int).Set(&c.Older)
 }
 
-//NewScalar new scalar
+// NewScalar new scalar
 func (c *Curve) NewScalar() crypto.FieldElement {
 	return NewBigNum(&c.Older, new(big.Int))
 }
 
-//PutScalar put scalar to pool
+// PutScalar put scalar to pool
 func (c *Curve) PutScalar(_ crypto.FieldElement) {
 }
 
-//GetRootOfUnity 找到v阶子群的元根,v是大于u的最小的2的幂
+// GetRootOfUnity 找到v阶子群的元根,v是大于u的最小的2的幂
 func (c *Curve) GetRootOfUnity(u uint64) (crypto.FieldElement, uint64, error) {
 	if !c.SupportFFT {
 		return nil, 0, crypto.ErrFFT
@@ -152,7 +152,7 @@ func (c *Curve) GetRootOfUnity(u uint64) (crypto.FieldElement, uint64, error) {
 	return res2, 4 << 1, nil
 }
 
-//Name get name
+// Name get name
 func (c *Curve) Name() string {
 	if c.SupportFFT {
 		return crypto.CurveNameCurve101
@@ -160,7 +160,7 @@ func (c *Curve) Name() string {
 	return crypto.CurveNameCurve101NonFFT
 }
 
-//Pair compute pairing
+// Pair compute pairing
 func (c *Curve) Pair(point []crypto.Point, point2 []crypto.Point) crypto.Point {
 	var ret = &gt{
 		p: c,
@@ -179,12 +179,12 @@ func (c *Curve) Pair(point []crypto.Point, point2 []crypto.Point) crypto.Point {
 	return ret
 }
 
-//PairCheck compute pairing
+// PairCheck compute pairing
 func (c *Curve) PairCheck(point []crypto.Point, point2 []crypto.Point) bool {
 	return c.Pair(point, point2).IsInfinity()
 }
 
-//IsOnCurve is on curve
+// IsOnCurve is on curve
 func (c *Curve) IsOnCurve(point crypto.Point) error {
 	var xx, yy *XBigNumForTest
 	switch in := point.(type) {
@@ -207,7 +207,7 @@ func (c *Curve) IsOnCurve(point crypto.Point) error {
 	return fmt.Errorf("is not on curve101")
 }
 
-//GetBase get base
+// GetBase get base
 func (c *Curve) GetBase(position crypto.Position) crypto.Point {
 	switch position {
 	case crypto.G1:
@@ -228,7 +228,7 @@ func (c *Curve) GetBase(position crypto.Position) crypto.Point {
 	}
 }
 
-//NewPoint new point
+// NewPoint new point
 func (c *Curve) NewPoint(position crypto.Position) crypto.Point {
 	switch position {
 	case crypto.G1:
@@ -249,7 +249,7 @@ func (c *Curve) NewPoint(position crypto.Position) crypto.Point {
 	}
 }
 
-//BatchScalarMultiplicationG1 batch multiplication
+// BatchScalarMultiplicationG1 batch multiplication
 func (c *Curve) BatchScalarMultiplicationG1(scalars []*big.Int, ret []crypto.Point) {
 	for i := range scalars {
 		ret[i] = c.NewPoint(crypto.G1)
@@ -257,7 +257,7 @@ func (c *Curve) BatchScalarMultiplicationG1(scalars []*big.Int, ret []crypto.Poi
 	}
 }
 
-//BatchScalarMultiplicationG2 batch multiplication
+// BatchScalarMultiplicationG2 batch multiplication
 func (c *Curve) BatchScalarMultiplicationG2(scalars []*big.Int, ret []crypto.Point) {
 	for i := range scalars {
 		ret[i] = c.NewPoint(crypto.G2)
@@ -265,7 +265,7 @@ func (c *Curve) BatchScalarMultiplicationG2(scalars []*big.Int, ret []crypto.Poi
 	}
 }
 
-//GetCurve97 get a curve for test
+// GetCurve97 get a curve for test
 func GetCurve97(fft bool) crypto.Pairing {
 	Curve97 := &Curve{
 		SupportFFT: fft,
@@ -297,7 +297,7 @@ func GetCurve97(fft bool) crypto.Pairing {
 	return Curve97
 }
 
-//GetCurve257 get a curve for test
+// GetCurve257 get a curve for test
 func GetCurve257(fft bool) crypto.Pairing {
 	Curve257 := &Curve{
 		SupportFFT: fft,
