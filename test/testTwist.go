@@ -10,19 +10,19 @@ import (
 	"github.com/meshplus/crypto"
 )
 
-//TwistPoint extern point
+// TwistPoint extern point
 type TwistPoint struct {
 	C     *Curve
 	X, Y  *XBigNumForTest
 	IsInf bool
 }
 
-//IsInfinity is infinity
+// IsInfinity is infinity
 func (t *TwistPoint) IsInfinity() bool {
 	return t.IsInf
 }
 
-//NewTwistPoint new point
+// NewTwistPoint new point
 func (c *Curve) NewTwistPoint(scalar *big.Int) *TwistPoint {
 	ret := &TwistPoint{
 		C: c,
@@ -46,7 +46,7 @@ func (c *Curve) NewTwistPoint(scalar *big.Int) *TwistPoint {
 	return ret
 }
 
-//Add add
+// Add add
 func (t *TwistPoint) Add(p1 crypto.Point, p2 crypto.Point) crypto.Point {
 	a, b := p1.(*TwistPoint), p2.(*TwistPoint)
 	if a.X.Equal(b.X) && a.Y.Equal(b.Y) && a.IsInf == b.IsInf {
@@ -89,7 +89,7 @@ func (t *TwistPoint) Add(p1 crypto.Point, p2 crypto.Point) crypto.Point {
 	return t
 }
 
-//Set set value
+// Set set value
 func (t *TwistPoint) Set(p crypto.Point) crypto.Point {
 	a := p.(*TwistPoint)
 	t.IsInf = a.IsInf
@@ -98,7 +98,7 @@ func (t *TwistPoint) Set(p crypto.Point) crypto.Point {
 	return t
 }
 
-//Double  double
+// Double  double
 func (t *TwistPoint) Double(p crypto.Point) crypto.Point {
 	a := p.(*TwistPoint)
 	if a.IsInf {
@@ -128,7 +128,7 @@ func (t *TwistPoint) Double(p crypto.Point) crypto.Point {
 	return t
 }
 
-//ScalarMult scalar multiplication
+// ScalarMult scalar multiplication
 func (t *TwistPoint) ScalarMult(a crypto.Point, scalar *big.Int) crypto.Point {
 	if scalar.Sign() == 0 {
 		t.IsInf = true
@@ -150,7 +150,7 @@ func (t *TwistPoint) ScalarMult(a crypto.Point, scalar *big.Int) crypto.Point {
 	return t
 }
 
-//ScalarBaseMult scalar multiplication with Base
+// ScalarBaseMult scalar multiplication with Base
 func (t *TwistPoint) ScalarBaseMult(e *big.Int) crypto.Point {
 	t.IsInf = false
 	t.X.Set(t.C.G2x)
@@ -158,17 +158,17 @@ func (t *TwistPoint) ScalarBaseMult(e *big.Int) crypto.Point {
 	return t.ScalarMult(t, e)
 }
 
-//GetPosition get position
+// GetPosition get position
 func (t *TwistPoint) GetPosition() crypto.Position {
 	return crypto.G2
 }
 
-//GetPairing get pairing
+// GetPairing get pairing
 func (t *TwistPoint) GetPairing() crypto.Pairing {
 	return t.C
 }
 
-//Marshal marshal
+// Marshal marshal
 func (t *TwistPoint) Marshal() []byte {
 	if t.IsInf {
 		return []byte("INFINITY")
@@ -192,7 +192,7 @@ func (t *TwistPoint) Marshal() []byte {
 	return []byte(fmt.Sprintf(`(%v,%v)`, x, y))
 }
 
-//Unmarshal unmarshal
+// Unmarshal unmarshal
 func (t *TwistPoint) Unmarshal(m []byte) ([]byte, error) {
 	in := string(m)
 	if in == "INFINITY" {
@@ -225,14 +225,14 @@ func (t *TwistPoint) Unmarshal(m []byte) ([]byte, error) {
 	return nil, nil
 }
 
-//Neg neg
+// Neg neg
 func (t *TwistPoint) Neg(point crypto.Point) crypto.Point {
 	t.Set(point)
 	t.Y.Neg(t.Y)
 	return t
 }
 
-//SetInfinity set infinity
+// SetInfinity set infinity
 func (t *TwistPoint) SetInfinity() {
 	t.IsInf = true
 }
@@ -268,7 +268,7 @@ func (c *Curve) pairing(G1, G2 crypto.Point) *gt {
 	return ret
 }
 
-//PrintArray print field element array
+// PrintArray print field element array
 func PrintArray(in interface{}) string {
 	vin := reflect.ValueOf(in)
 	if vin.Kind() != reflect.Slice {

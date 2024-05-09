@@ -5,7 +5,7 @@ import (
 	"math/big"
 )
 
-//nolint
+// nolint
 const (
 	ST_ONE = 1 + iota
 	ST_OUTPUT
@@ -16,13 +16,13 @@ const (
 	ST_CONSTANT  //常量信号，即被赋值为N的信号
 )
 
-//zkp algo
+// zkp algo
 const (
 	Groth16        = 0x00
 	AlgoTypeOffset = 32
 )
 
-//algo name
+// algo name
 const (
 	AlgoGroth16 = "groth16"
 	AlgoPlonk   = "plonk"
@@ -38,26 +38,26 @@ const (
 	ProofVersion1 = 0x01 << iota
 )
 
-//ChainType chain type
+// ChainType chain type
 type ChainType string
 
-//chain type enum
+// chain type enum
 const (
 	VMEvm       ChainType = "EVM"
 	VMChainCode ChainType = "ChainCode"
 )
 
-//ProverInfo witness
+// ProverInfo witness
 type ProverInfo map[string][]*big.Int
 
-//R1CSIterator r1cs iterator
+// R1CSIterator r1cs iterator
 type R1CSIterator interface {
 	ConstraintsNum() uint64
 	Next(pos *int) (index int, a, b, c map[int]FieldElement)
 	GetSignalByID(nowid int) (id, reoffset int, prefix string, value FieldElement)
 }
 
-//R1CS r1cs
+// R1CS r1cs
 type R1CS interface {
 	fmt.Stringer
 	R1CSIterator
@@ -68,7 +68,7 @@ type R1CS interface {
 	GetPairing() Pairing
 }
 
-//ProveKey zk-SNARKs algorithm prove key
+// ProveKey zk-SNARKs algorithm prove key
 type ProveKey interface {
 	Prove(cs R1CS, witness []FieldElement, mpc MPC) ([]byte, error)
 	GetSnark() string
@@ -77,7 +77,7 @@ type ProveKey interface {
 	Marshaller
 }
 
-//VerifyProofKey vk
+// VerifyProofKey vk
 type VerifyProofKey interface {
 	Verify(in []byte, limit string, mpc MPC) error
 	GetSnark() string
@@ -100,7 +100,7 @@ type MPC interface {
 	Marshaller
 }
 
-//Snarks zk-SNARKS
+// Snarks zk-SNARKS
 type Snarks interface {
 	Name() string
 	Setup(r1cs R1CS) (ProveKey, VerifyProofKey, error)
@@ -109,7 +109,7 @@ type Snarks interface {
 	UnmarshalPK(in []byte) (ProveKey, error)
 }
 
-//VCMetrics metrics for prove and verify
+// VCMetrics metrics for prove and verify
 type VCMetrics interface {
 	UpdateGetDataTime(s, e int64)
 	UpdateWaitTime(s, e int64)

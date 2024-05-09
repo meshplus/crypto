@@ -15,7 +15,7 @@ func init() {
 	gob.Register(&XBigNumForTest{})
 }
 
-//NewXBigNum new big number
+// NewXBigNum new big number
 func NewXBigNum(P, I, V, Vi *big.Int) *XBigNumForTest {
 	ret := &XBigNumForTest{
 		V:  V,
@@ -26,7 +26,7 @@ func NewXBigNum(P, I, V, Vi *big.Int) *XBigNumForTest {
 	return ret
 }
 
-//XBigNumForTest for test
+// XBigNumForTest for test
 type XBigNumForTest struct {
 	P  big.Int
 	IS big.Int
@@ -45,22 +45,22 @@ func convertToX(in crypto.FieldElement, s *big.Int) *XBigNumForTest {
 	}
 }
 
-//UnmarshalJSON json.UnMarshaler
+// UnmarshalJSON json.UnMarshaler
 func (b *XBigNumForTest) UnmarshalJSON(in []byte) error {
 	return json.Unmarshal(in, b)
 }
 
-//MarshalJSON json.Marshaler
+// MarshalJSON json.Marshaler
 func (b *XBigNumForTest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(*b)
 }
 
-//MontBytes Montgomery Byte String
+// MontBytes Montgomery Byte String
 func (b *XBigNumForTest) MontBytes(res []byte) []byte {
 	panic("need implement")
 }
 
-//Add add
+// Add add
 func (b *XBigNumForTest) Add(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	in1, in2 := convertToX(a1, &iSquare), convertToX(a2, &iSquare)
 	b.V.Add(in1.V, in2.V).Mod(b.V, &b.P)
@@ -68,19 +68,19 @@ func (b *XBigNumForTest) Add(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//ToBigInt convert to big.Rat
+// ToBigInt convert to big.Rat
 func (b *XBigNumForTest) ToBigInt(rat *big.Int) *big.Int {
 	b.V.Mod(b.V, &b.P)
 	rat.Set(b.V)
 	return b.V
 }
 
-//String fmt.Stringer
+// String fmt.Stringer
 func (b *XBigNumForTest) String() string {
 	return fmt.Sprintf("%v+%vi", b.V.Text(10), b.Vi.Text(10))
 }
 
-//Mul (V1·V2+IS·Vi1·Vi2, V1·Vi2+V2·Vi1)
+// Mul (V1·V2+IS·Vi1·Vi2, V1·Vi2+V2·Vi1)
 func (b *XBigNumForTest) Mul(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	in1, in2 := convertToX(a1, &iSquare), convertToX(a2, &iSquare)
 	t1, t2, t3 := new(big.Int), new(big.Int), new(big.Int)
@@ -100,17 +100,17 @@ func (b *XBigNumForTest) Mul(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//Square square
+// Square square
 func (b *XBigNumForTest) Square(a crypto.FieldElement) crypto.FieldElement {
 	return b.Mul(a, a)
 }
 
-//Double double
+// Double double
 func (b *XBigNumForTest) Double(a crypto.FieldElement) crypto.FieldElement {
 	return b.Add(a, a)
 }
 
-//Neg neg
+// Neg neg
 func (b *XBigNumForTest) Neg(a crypto.FieldElement) crypto.FieldElement {
 	in := convertToX(a, &iSquare)
 	b.V.Neg(in.V).Mod(b.V, &b.P)
@@ -118,7 +118,7 @@ func (b *XBigNumForTest) Neg(a crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//Inv inv
+// Inv inv
 func (b *XBigNumForTest) Inv(a crypto.FieldElement) crypto.FieldElement {
 	in := convertToX(a, &iSquare)
 	t1, t2 := new(big.Int), new(big.Int)
@@ -134,7 +134,7 @@ func (b *XBigNumForTest) Inv(a crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//Sub sub
+// Sub sub
 func (b *XBigNumForTest) Sub(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	tmp := NewXBigNum(&b.P, &b.IS, new(big.Int), new(big.Int))
 	tmp.Set(a2)
@@ -143,7 +143,7 @@ func (b *XBigNumForTest) Sub(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//Div div
+// Div div
 func (b *XBigNumForTest) Div(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	tmp := NewXBigNum(&b.P, &b.IS, new(big.Int), new(big.Int))
 	tmp.Set(a2)
@@ -152,7 +152,7 @@ func (b *XBigNumForTest) Div(a1, a2 crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//Exp exp
+// Exp exp
 func (b *XBigNumForTest) Exp(element crypto.FieldElement, bytes []byte) crypto.FieldElement {
 	e := new(big.Int).SetBytes(bytes)
 	e.Mod(e, &module)
@@ -170,29 +170,29 @@ func (b *XBigNumForTest) Exp(element crypto.FieldElement, bytes []byte) crypto.F
 	return b
 }
 
-//Equal is equal
+// Equal is equal
 func (b *XBigNumForTest) Equal(element crypto.FieldElement) bool {
 	in := convertToX(element, &iSquare)
 	return b.V.Cmp(in.V) == 0 && b.Vi.Cmp(in.Vi) == 0 &&
 		b.P.Cmp(&in.P) == 0 && b.IS.Cmp(&in.IS) == 0
 }
 
-//IsZero is zero
+// IsZero is zero
 func (b *XBigNumForTest) IsZero() bool {
 	return b.V.Cmp(big.NewInt(0)) == 0 && b.Vi.Cmp(big.NewInt(0)) == 0
 }
 
-//IsOne is one
+// IsOne is one
 func (b *XBigNumForTest) IsOne() bool {
 	return b.V.Cmp(one) == 0 && b.Vi.BitLen() == 0
 }
 
-//IsNeg is negative
+// IsNeg is negative
 func (b *XBigNumForTest) IsNeg() bool {
 	panic("need implement")
 }
 
-//Set set
+// Set set
 func (b *XBigNumForTest) Set(element crypto.FieldElement) crypto.FieldElement {
 	in := convertToX(element, &iSquare)
 	b.V.Set(in.V)
@@ -202,21 +202,21 @@ func (b *XBigNumForTest) Set(element crypto.FieldElement) crypto.FieldElement {
 	return b
 }
 
-//SetOne set one
+// SetOne set one
 func (b *XBigNumForTest) SetOne() crypto.FieldElement {
 	b.V.SetUint64(1)
 	b.Vi.SetUint64(0)
 	return b
 }
 
-//SetZero set zero
+// SetZero set zero
 func (b *XBigNumForTest) SetZero() crypto.FieldElement {
 	b.V.SetUint64(0)
 	b.Vi.SetUint64(0)
 	return b
 }
 
-//Copy copy
+// Copy copy
 func (b *XBigNumForTest) Copy() crypto.FieldElement {
 	tmp := &XBigNumForTest{
 		V:  big.NewInt(0),
@@ -226,7 +226,7 @@ func (b *XBigNumForTest) Copy() crypto.FieldElement {
 	return tmp
 }
 
-//SetInt64 set uint64
+// SetInt64 set uint64
 func (b *XBigNumForTest) SetInt64(u int64) crypto.FieldElement {
 	b.V.SetInt64(u)
 	b.V.Mod(b.V, &b.P)
@@ -234,7 +234,7 @@ func (b *XBigNumForTest) SetInt64(u int64) crypto.FieldElement {
 	return b
 }
 
-//SetUint64 set uint64
+// SetUint64 set uint64
 func (b *XBigNumForTest) SetUint64(u uint64) crypto.FieldElement {
 	b.V.SetUint64(u)
 	b.V.Mod(b.V, &b.P)
@@ -242,7 +242,7 @@ func (b *XBigNumForTest) SetUint64(u uint64) crypto.FieldElement {
 	return b
 }
 
-//SetRandom set random
+// SetRandom set random
 func (b *XBigNumForTest) SetRandom(reader io.Reader) crypto.FieldElement {
 	a, _ := rand.Int(reader, &b.P)
 	b.V.Set(a)
@@ -251,7 +251,7 @@ func (b *XBigNumForTest) SetRandom(reader io.Reader) crypto.FieldElement {
 	return b
 }
 
-//Regular regular
+// Regular regular
 func (b *XBigNumForTest) Regular(bytes []byte) []byte {
 	panic("need implement")
 }
@@ -261,12 +261,12 @@ func (b *XBigNumForTest) FromRegular(content []byte) crypto.FieldElement {
 	panic("need implement")
 }
 
-//From parse *big.Rat
+// From parse *big.Rat
 func (b *XBigNumForTest) From(in *big.Int) crypto.FieldElement {
 	panic("can't use")
 }
 
-//GetModule get module
+// GetModule get module
 func (b *XBigNumForTest) GetModule(b2 *big.Int) {
 	b2.Set(&b.P)
 }
