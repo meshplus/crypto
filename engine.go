@@ -235,5 +235,6 @@ const (
 	ERCert                          //ercert
 	IDCert                          //idcert
 	RAWPub                          //rawpub
+	WCert                           //wcert
 	UnknownCertType                 //unknown_cert_type
 )

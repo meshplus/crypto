@@ -15,12 +15,13 @@ func _() {
 	_ = x[ERCert-4]
 	_ = x[IDCert-5]
 	_ = x[RAWPub-6]
-	_ = x[UnknownCertType-7]
+	_ = x[WCert-7]
+	_ = x[UnknownCertType-8]
 }
 
-const _CertType_name = "ecertrcertsdkcerttcertercertidcertrawpubunknown_cert_type"
+const _CertType_name = "ecertrcertsdkcerttcertercertidcertrawpubwcertunknown_cert_type"
 
-var _CertType_index = [...]uint8{0, 5, 10, 17, 22, 28, 34, 40, 57}
+var _CertType_index = [...]uint8{0, 5, 10, 17, 22, 28, 34, 40, 45, 62}
 
 func (i CertType) String() string {
 	if i < 0 || i >= CertType(len(_CertType_index)-1) {
